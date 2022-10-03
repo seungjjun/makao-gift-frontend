@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 import useShopStore from '../hooks/useShopStore';
 
+import numberFormat from '../utils/NumberFormat';
+
 export default function Amount() {
   const shopStore = useShopStore();
 
@@ -13,7 +15,7 @@ export default function Amount() {
     <p>
       내 잔액:
       {' '}
-      {shopStore.amount}
+      {numberFormat(shopStore.amount)}
       원
     </p>
   );

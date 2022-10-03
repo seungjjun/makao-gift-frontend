@@ -1,4 +1,4 @@
-import OrderStore from './OrderStore';
+import OrderStore from '../../src/stores/OrderStore';
 
 describe('OrderStore', () => {
   test('orderStore', () => {

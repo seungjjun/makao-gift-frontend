@@ -1,6 +1,6 @@
-import server from '../testServer';
+import server from '../../src/testServer';
 
-import ShopStore from './ShopStore';
+import ShopStore from '../../src/stores/ShopStore';
 
 const context = describe;
 
