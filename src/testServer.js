@@ -19,9 +19,18 @@ const server = setupServer(
     }
     return res(ctx.status(400));
   }),
+
   rest.get(`${baseUrl}/user/me`, async (req, res, ctx) => res(ctx.json({
     name: '노승준',
     amount: 50_000,
+  }))),
+
+  rest.get(`${baseUrl}/products`, async (req, res, ctx) => res(ctx.json({
+    products: [
+      {
+        id: 1, manufacturer: '킹왕짱젤리', name: '젤리세트', price: 10_000,
+      },
+    ],
   }))),
 );
 

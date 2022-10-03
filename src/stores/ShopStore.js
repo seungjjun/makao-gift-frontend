@@ -1,25 +1,15 @@
 import { apiService } from '../services/ApiService';
 
-export default class ShopStore {
+import Store from './Store';
+
+export default class ShopStore extends Store {
   constructor() {
-    this.listeners = new Set();
+    super();
 
     this.id = '';
     this.name = '';
     this.amount = 0;
     this.orderList = [];
-  }
-
-  subscribe(listener) {
-    this.listeners.add(listener);
-  }
-
-  unsubscribe(listener) {
-    this.listeners.delete(listener);
-  }
-
-  publish() {
-    this.listeners.forEach((listener) => listener());
   }
 
   async login({ id, password }) {

@@ -1,20 +1,6 @@
-import server from '../../src/testServer';
-
 import ShopStore from '../../src/stores/ShopStore';
 
 const context = describe;
-
-beforeAll(() => {
-  server.listen();
-});
-
-afterEach(() => {
-  server.resetHandlers();
-});
-
-afterAll(() => {
-  server.close();
-});
 
 describe('ShopStore', () => {
   let shopStore;
