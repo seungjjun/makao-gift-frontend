@@ -12,13 +12,17 @@ const server = setupServer(
     const { id, password } = await req.json();
     if (id === 'jel1y' && password === 'Qwe1234!') {
       return res(ctx.json({
-        accessToken: '123',
+        accessToken: 'ACCESS.TOKEN',
         name: '노승준',
         amount: 50_000,
       }));
     }
     return res(ctx.status(400));
   }),
+  rest.get(`${baseUrl}/user/me`, async (req, res, ctx) => res(ctx.json({
+    name: '노승준',
+    amount: 50_000,
+  }))),
 );
 
 export default server;

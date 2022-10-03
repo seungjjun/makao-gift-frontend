@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import Amount from './Amount';
+
 export default function Header() {
   return (
     <header>
@@ -22,6 +24,7 @@ export default function Header() {
           </li>
         </ul>
       </nav>
+      <Amount />
     </header>
   );
 }

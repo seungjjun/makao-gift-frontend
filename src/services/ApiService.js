@@ -13,6 +13,15 @@ export default class ApiService {
       amount: data.amount,
     };
   }
+
+  async fetchUser() {
+    const url = `${baseUrl}/user/me`;
+    const { data } = await axios.get(url);
+    return {
+      name: data.name,
+      amount: data.amount,
+    };
+  }
 }
 
 export const apiService = new ApiService();
