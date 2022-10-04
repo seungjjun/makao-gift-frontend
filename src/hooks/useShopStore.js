@@ -11,7 +11,7 @@ export default function useShopStore() {
     shopStore.subscribe(forceUpdate);
 
     return () => shopStore.unsubscribe(forceUpdate);
-  }, [forceUpdate]);
+  }, []);
 
   return shopStore;
 }

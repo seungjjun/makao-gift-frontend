@@ -6,17 +6,29 @@ export default class ProductStore extends Store {
   constructor() {
     super();
 
-    this.id = '';
-    this.manufacturer = '';
-    this.name = '';
-    this.option = '';
-    this.price = 0;
-
     this.products = [];
+    this.pageNumber = 0;
+    this.pageNumbers = [];
   }
 
-  async fetchProducts() {
-    this.products = await apiService.fetchProducts();
+  async fetchProducts(number) {
+    this.products = [];
+    const { products, productNumber } = await apiService.fetchProducts(number);
+
+    this.products = products;
+
+    this.pageNumber = Math.floor(productNumber / 8);
+
+    if (productNumber % 8 > 0) {
+      this.pageNumber += 1;
+    }
+
+    this.publish();
+  }
+
+  async pagination() {
+    this.pageNumbers = [...Array(this.pageNumber)]
+      .map((value, index) => index + 1);
 
     this.publish();
   }

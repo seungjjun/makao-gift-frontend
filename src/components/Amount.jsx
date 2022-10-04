@@ -12,11 +12,14 @@ export default function Amount() {
   }, []);
 
   return (
-    <p>
-      내 잔액:
-      {' '}
-      {numberFormat(shopStore.amount)}
-      원
-    </p>
+    <section>
+      <p>
+        내 잔액:
+        {' '}
+        {numberFormat(shopStore.amount)}
+        원
+      </p>
+    </section>
+
   );
 }

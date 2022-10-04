@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import { shopStore } from '../../src/stores/ShopStore';
+
 import Amount from '../../src/components/Amount';
 
 test('Amount', async () => {
@@ -7,5 +9,7 @@ test('Amount', async () => {
 
   render(<Amount />);
 
-  screen.getByText('내 잔액: 50,000원');
+  await waitFor(() => {
+    screen.getByText('내 잔액: 50,000원');
+  });
 });

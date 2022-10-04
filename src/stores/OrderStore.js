@@ -1,5 +1,9 @@
-export default class OrderStore {
+import Store from './Store';
+
+export default class OrderStore extends Store {
   constructor() {
+    super();
+
     this.amounts = {
       jel1y: 50_000,
     };

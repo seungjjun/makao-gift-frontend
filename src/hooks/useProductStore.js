@@ -11,7 +11,7 @@ export default function useProductStore() {
     productStore.subscribe(forceUpdate);
 
     return () => productStore.unsubscribe(forceUpdate);
-  }, [forceUpdate]);
+  }, []);
 
   return productStore;
 }

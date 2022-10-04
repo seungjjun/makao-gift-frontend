@@ -17,7 +17,7 @@ export default function Header() {
             <Link to="/signup">회원가입</Link>
           </li>
           <li>
-            <Link to="/products">스토어</Link>
+            <Link to="/products?page=1">스토어</Link>
           </li>
           <li>
             <Link to="/orders">주문조회</Link>
