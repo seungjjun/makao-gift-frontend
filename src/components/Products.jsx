@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +24,10 @@ export default function Products() {
     productStore.fetchProducts(value);
   };
 
+  const handleclcikLink = (id) => {
+    navagate(`/products/${id}`);
+  };
+
   const { pageNumbers } = productStore;
 
   const { products } = productStore;
@@ -31,7 +37,11 @@ export default function Products() {
       <div>
         <ul>
           {products.map((product) => (
-            <li key={product.id}>
+            <li
+              type="button"
+              key={product.id}
+              onClick={() => handleclcikLink(product.id)}
+            >
               <p>
                 제조사:
                 {' '}
