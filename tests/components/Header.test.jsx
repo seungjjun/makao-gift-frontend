@@ -1,12 +1,25 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+
 import Header from '../../src/components/Header';
+
+const navigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  Link({ children, to }) {
+    return (
+      <a href={to}>
+        {children}
+      </a>
+    );
+  },
+  useNavigate() {
+    return navigate;
+  },
+}));
 
 test('Header', () => {
   render((
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
+    <Header />
   ));
 
   screen.getByText('홈');

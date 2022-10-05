@@ -14,7 +14,9 @@ describe('ProductStore', () => {
     it('상품 정보을 불러옴', async () => {
       await productStore.fetchProducts();
 
-      expect(productStore.products.length).toBe(9);
+      waitFor(() => {
+        expect(productStore.products.length).toBe(9);
+      });
     });
   });
 
@@ -29,6 +31,17 @@ describe('ProductStore', () => {
 
       waitFor(() => {
         expect(productStore.pageNumbers).toBe(2);
+      });
+    });
+  });
+
+  describe('changeProductNumber', () => {
+    it('4000원 금액의 상품의 수량을 3으로 변경', async () => {
+      await productStore.changeProductNumber('+', 4000);
+
+      waitFor(async () => {
+        expect(productStore.productNumber).toBe(3);
+        expect(productStore.productPrice).toBe(12000);
       });
     });
   });

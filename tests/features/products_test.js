@@ -6,6 +6,10 @@ Before(({ I }) => {
 });
 
 Scenario('스토어에 상품이 존재하지 않을 경우', ({ I }) => {
+  I.deleteProduct();
+
+  I.amOnPage('/');
+
   // When
   I.click('스토어');
 
@@ -15,8 +19,10 @@ Scenario('스토어에 상품이 존재하지 않을 경우', ({ I }) => {
 
 Scenario('스토어에 상품이 8개 이하로 존재할 경우', ({ I }) => {
   // Given
-  // 상품 세팅 1개 (제조사: 킹왕짱젤리  상품 이름: 젤리세트  상품 금액: 10,000원)
   I.setupDatabase();
+
+  I.amOnPage('/');
+
   // When
   I.click('스토어');
 
@@ -26,7 +32,8 @@ Scenario('스토어에 상품이 8개 이하로 존재할 경우', ({ I }) => {
 
 Scenario('스토어에 상품이 8개 이상 존재할 경우', ({ I }) => {
   // Given
-  // 상품 세팅 9개
+  I.settingProduct();
+  I.amOnPage('/');
 
   // When
   I.click('스토어');
@@ -35,5 +42,5 @@ Scenario('스토어에 상품이 8개 이상 존재할 경우', ({ I }) => {
   I.click('2');
 
   // Then
-//   I.see('')
+  I.see('선물하기');
 });

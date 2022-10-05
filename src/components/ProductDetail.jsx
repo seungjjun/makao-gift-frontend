@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
 import useProductStore from '../hooks/useProductStore';
 
 import numberFormat from '../utils/NumberFormat';
@@ -5,14 +9,20 @@ import numberFormat from '../utils/NumberFormat';
 export default function ProductDetail() {
   const productStore = useProductStore();
 
-  const detail = window.location.pathname;
-  const productId = detail.charAt(detail.length - 1);
+  const location = useLocation();
 
-  const { products } = productStore;
+  useEffect(() => {
+    const path = location.pathname;
+    const productId = path.charAt(path.length - 1);
 
-  const information = (productId % 8) > 0 ? (productId % 8) - 1 : productId - 1;
+    productStore.fetchProduct(productId);
+  }, []);
 
-  const product = products[information];
+  const { product } = productStore;
+
+  const handleClickCount = (e) => {
+    productStore.changeProductNumber(e.target.innerText, product.price);
+  };
 
   return (
     <div>
@@ -23,13 +33,28 @@ export default function ProductDetail() {
       </p>
       <p>
         {numberFormat(product.price)}
+        원
       </p>
       <p>
         제조사
         {' '}
         {product.manufacturer}
       </p>
-      <p>총 상품금액:</p>
+      <div>
+        <button type="button" onClick={(e) => handleClickCount(e)}>-</button>
+        <input
+          type="number"
+          value={productStore.productNumber}
+          readOnly
+        />
+        <button type="button" onClick={(e) => handleClickCount(e)}>+</button>
+      </div>
+      <p>
+        총 상품금액:
+        {' '}
+        {numberFormat(productStore.productPrice)}
+        원
+      </p>
       <button type="button">선물하기</button>
     </div>
   );

@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
+import { productStore } from './stores/ProductStore';
+
 import Header from './components/Header';
 
 import HomePage from './pages/HomePage';
@@ -10,6 +14,11 @@ import OrdersPage from './pages/OrdersPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 
 export default function App() {
+  useEffect(() => {
+    productStore.fetchProducts(1);
+    productStore.pagination();
+  }, []);
+
   return (
     <div>
       <Header />

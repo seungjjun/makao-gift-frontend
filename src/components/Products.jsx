@@ -14,14 +14,14 @@ export default function Products() {
   const productStore = useProductStore();
 
   useEffect(() => {
-    productStore.fetchProducts();
+    productStore.fetchProducts(window.location.href.split('=')[1]);
     productStore.pagination();
   }, []);
 
   const handleClickPageNumber = async (e) => {
     const { value } = e.target;
     navagate(`/products?page=${value}`);
-    productStore.fetchProducts(value);
+    await productStore.fetchProducts(value);
   };
 
   const handleclcikLink = (id) => {
@@ -36,30 +36,34 @@ export default function Products() {
       <p>인기선물을 한 자리에 모았어요</p>
       <div>
         <ul>
-          {products.map((product) => (
-            <li
-              type="button"
-              key={product.id}
-              onClick={() => handleclcikLink(product.id)}
-            >
-              <p>
-                제조사:
-                {' '}
-                {product.manufacturer}
-              </p>
-              <p>
-                상품 이름:
-                {' '}
-                {product.option}
-                {' '}
-                {product.name}
-              </p>
-              <p>
-                {numberFormat(product.price)}
-                원
-              </p>
-            </li>
-          ))}
+          {products.length === 0 ? (
+            <p>상품이 존재하지 않습니다</p>
+          ) : (
+            products.map((product) => (
+              <li
+                type="button"
+                key={product.id}
+                onClick={() => handleclcikLink(product.id)}
+              >
+                <p>
+                  제조사:
+                  {' '}
+                  {product.manufacturer}
+                </p>
+                <p>
+                  상품 이름:
+                  {' '}
+                  {product.option}
+                  {' '}
+                  {product.name}
+                </p>
+                <p>
+                  {numberFormat(product.price)}
+                  원
+                </p>
+              </li>
+            ))
+          )}
         </ul>
         <ul>
           {pageNumbers.map((number) => (
