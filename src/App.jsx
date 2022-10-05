@@ -10,8 +10,9 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ProductsPage from './pages/ProductsPage';
-import OrdersPage from './pages/OrdersPage';
 import ProductDetailPage from './pages/ProductDetailPage';
+import OrderPage from './pages/OrderPage';
+import OrdersPage from './pages/OrdersPage';
 
 export default function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products?page=1" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
+        <Route path="/order" element={<OrderPage />} />
         <Route path="/orders" element={<OrdersPage />} />
       </Routes>
     </div>

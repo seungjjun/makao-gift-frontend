@@ -26,11 +26,9 @@ const server = setupServer(
   }))),
 
   rest.get(`${baseUrl}/products/1`, async (req, res, ctx) => res(ctx.json({
-    products: [
-      {
-        id: 1, manufacturer: '킹왕짱젤리', name: '젤리세트', option: '대왕젤리2개포함한', price: 10_000,
-      },
-    ],
+    product: {
+      id: 1, manufacturer: '킹왕짱젤리', name: '젤리세트', option: '대왕젤리2개포함한', price: 10_000,
+    },
   }))),
 
   rest.get(`${baseUrl}/products`, async (req, res, ctx) => res(ctx.json({

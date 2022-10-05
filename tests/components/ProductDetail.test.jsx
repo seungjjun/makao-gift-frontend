@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render, screen, waitFor,
+} from '@testing-library/react';
 
 import ProductDetail from '../../src/components/ProductDetail';
 
@@ -10,6 +12,8 @@ jest.mock('react-router-dom', () => ({
     state: null,
     key: 'default',
   })),
+
+  useNavigate: jest.fn(),
 }));
 
 jest.mock('../../src/services/ApiService', () => ({

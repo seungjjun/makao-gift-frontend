@@ -7,9 +7,9 @@ import numberFormat from '../utils/NumberFormat';
 export default function Amount() {
   const shopStore = useShopStore();
 
-  useEffect(() => {
-    shopStore.fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   shopStore.fetchUser();
+  // }, []);
 
   return (
     <section>

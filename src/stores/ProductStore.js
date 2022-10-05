@@ -7,11 +7,13 @@ export default class ProductStore extends Store {
     super();
 
     this.product = {};
+
     this.productPrice = 0;
 
     this.products = [];
 
     this.pageNumber = 0;
+
     this.pageNumbers = [];
 
     this.productNumber = 1;
@@ -49,7 +51,7 @@ export default class ProductStore extends Store {
     this.publish();
   }
 
-  async changeProductNumber(operator, price) {
+  changeProductNumber(operator, price) {
     if (operator === '+') {
       this.productNumber += 1;
       this.productPrice += price;

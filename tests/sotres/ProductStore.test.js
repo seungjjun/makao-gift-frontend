@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+
 import ProductStore from '../../src/stores/ProductStore';
 
 const context = describe;
@@ -14,8 +15,18 @@ describe('ProductStore', () => {
     it('상품 정보을 불러옴', async () => {
       await productStore.fetchProducts();
 
-      waitFor(() => {
+      await waitFor(() => {
         expect(productStore.products.length).toBe(9);
+      });
+    });
+
+    it('상품 세부 정보를 불러옴', async () => {
+      await productStore.fetchProduct(1);
+
+      const { product } = productStore;
+
+      waitFor(() => {
+        expect(product.name).toBe('젤리세트');
       });
     });
   });
@@ -27,21 +38,28 @@ describe('ProductStore', () => {
       waitFor(async () => {
         expect(productStore.pageNumber).toBe(2);
         await productStore.pagination();
-      });
 
-      waitFor(() => {
         expect(productStore.pageNumbers).toBe(2);
       });
     });
   });
 
   describe('changeProductNumber', () => {
-    it('4000원 금액의 상품의 수량을 3으로 변경', async () => {
-      await productStore.changeProductNumber('+', 4000);
+    it('4000원 금액의 상품의 수량을 2으로 변경', async () => {
+      await productStore.fetchProduct(1);
 
-      waitFor(async () => {
-        expect(productStore.productNumber).toBe(3);
-        expect(productStore.productPrice).toBe(12000);
+      waitFor(() => {
+        expect(productStore.productPrice).toBe(4000);
+      });
+
+      expect(productStore.productNumber).toBe(1);
+
+      productStore.changeProductNumber('+', 4000);
+
+      expect(productStore.productNumber).toBe(2);
+
+      waitFor(() => {
+        expect(productStore.productPrice).toBe(8000);
       });
     });
   });

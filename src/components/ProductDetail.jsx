@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useOrderStore from '../hooks/useOrderStore';
 
 import useProductStore from '../hooks/useProductStore';
 
@@ -8,8 +9,11 @@ import numberFormat from '../utils/NumberFormat';
 
 export default function ProductDetail() {
   const productStore = useProductStore();
+  const orderStore = useOrderStore();
 
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const path = location.pathname;
@@ -22,6 +26,18 @@ export default function ProductDetail() {
 
   const handleClickCount = (e) => {
     productStore.changeProductNumber(e.target.innerText, product.price);
+  };
+
+  const handleClickGift = () => {
+    orderStore.productInformation(
+      product.manufacturer,
+      product.name,
+      product.option,
+      productStore.productNumber,
+      productStore.productPrice,
+    );
+
+    navigate('/order');
   };
 
   return (
@@ -55,7 +71,12 @@ export default function ProductDetail() {
         {numberFormat(productStore.productPrice)}
         원
       </p>
-      <button type="button">선물하기</button>
+      <button
+        type="button"
+        onClick={handleClickGift}
+      >
+        선물하기
+      </button>
     </div>
   );
 }
