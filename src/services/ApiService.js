@@ -44,6 +44,25 @@ export default class ApiService {
       productNumber,
     };
   }
+
+  async fetchTransactions() {
+    const url = `${baseUrl}/orders`;
+    const { data } = await axios.get(url);
+    const { transactions } = data;
+    return transactions;
+  }
+
+  async order({
+    sender, receiver, address, message, productNumber, price, manufacturer, productName, option,
+  }) {
+    const url = `${baseUrl}/order`;
+    const { data } = await axios.post(url, {
+      sender, receiver, productNumber, price, address, message, manufacturer, productName, option,
+    });
+    return {
+      price: data.price,
+    };
+  }
 }
 
 export const apiService = new ApiService();

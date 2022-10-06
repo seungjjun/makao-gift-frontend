@@ -1,5 +1,16 @@
+import { useEffect } from 'react';
+import Transactions from '../components/Transactions';
+
+import useShopStore from '../hooks/useShopStore';
+
 export default function OrdersPage() {
+  const shopStore = useShopStore();
+
+  useEffect(() => {
+    shopStore.fetchTransactions();
+  }, []);
+
   return (
-    <p>내가 주문한 내역입니다</p>
+    <Transactions />
   );
 }

@@ -1,3 +1,5 @@
+import { apiService } from '../services/ApiService';
+
 import Store from './Store';
 
 export default class OrderStore extends Store {
@@ -29,6 +31,26 @@ export default class OrderStore extends Store {
     this.receiver = receiver;
     this.address = address;
     this.message = message;
+
+    const { manufacturer } = this;
+    const { productName } = this;
+    const { option } = this;
+    const { productNumber } = this;
+    const { price } = this;
+
+    await apiService.order(
+      {
+        sender,
+        receiver,
+        address,
+        message,
+        productNumber,
+        price,
+        manufacturer,
+        productName,
+        option,
+      },
+    );
 
     this.publish();
   }

@@ -9,7 +9,7 @@ export default class ShopStore extends Store {
     this.id = '';
     this.name = '';
     this.amount = 0;
-    this.orderList = [];
+    this.transactions = [];
   }
 
   async login({ id, password }) {
@@ -33,6 +33,11 @@ export default class ShopStore extends Store {
     this.name = name;
     this.amount = amount;
 
+    this.publish();
+  }
+
+  async fetchTransactions() {
+    this.transactions = await apiService.fetchTransactions();
     this.publish();
   }
 }
