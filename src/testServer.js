@@ -79,6 +79,22 @@ const server = setupServer(
       },
     ],
   }))),
+
+  rest.get(`${baseUrl}/orders/1`, async (req, res, ctx) => res(ctx.json({
+    transaction: {
+      id: 1,
+      receiver: '노승준',
+      sender: 'jel1y',
+      manufacturer: '빙그레',
+      productName: '요맘때',
+      option: '수억마리의 유산균이 싱싱하게 살아있는',
+      productNumber: 1,
+      address: '서울 종로',
+      price: 1_000,
+      message: '선물도착',
+      createdAt: '2022-10-06',
+    },
+  }))),
 );
 
 export default server;

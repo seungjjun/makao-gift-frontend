@@ -10,6 +10,7 @@ export default class OrderStore extends Store {
       jel1y: 50_000,
     };
 
+    this.id = '';
     this.sender = '';
     this.receiver = '';
     this.address = '';

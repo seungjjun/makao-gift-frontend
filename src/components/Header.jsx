@@ -18,7 +18,7 @@ export default function Header() {
             <Link to="/products?page=1">스토어</Link>
           </li>
           <li>
-            <Link to="/orders">주문조회</Link>
+            <Link to="/orders?page=1">주문조회</Link>
           </li>
         </ul>
       </nav>

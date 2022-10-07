@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import Transactions from '../components/Transactions';
+
+import OrderList from '../components/OrderList';
 
 import useShopStore from '../hooks/useShopStore';
 
@@ -11,6 +12,6 @@ export default function OrdersPage() {
   }, []);
 
   return (
-    <Transactions />
+    <OrderList />
   );
 }

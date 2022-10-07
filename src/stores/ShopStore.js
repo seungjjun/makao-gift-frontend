@@ -9,7 +9,16 @@ export default class ShopStore extends Store {
     this.id = '';
     this.name = '';
     this.amount = 0;
+
     this.transactions = [];
+
+    this.transaction = {};
+
+    this.pageNumber = 0;
+
+    this.pageNumbers = [];
+
+    this.transactionNumber = 1;
   }
 
   async login({ id, password }) {
@@ -36,8 +45,34 @@ export default class ShopStore extends Store {
     this.publish();
   }
 
-  async fetchTransactions() {
-    this.transactions = await apiService.fetchTransactions();
+  async fetchTransaction(id) {
+    // const { transaction } = await apiService.fetchTransaction(id);
+    this.transaction = await apiService.fetchTransaction(id);
+
+    this.transaction.createdAt = this.transaction.createdAt.substr(0, 10);
+
+    this.publish();
+  }
+
+  async fetchTransactions(number) {
+    const { transactions, transactionNumber } = await apiService.fetchTransactions(number);
+
+    this.transactions = transactions;
+    this.transactionNumber = transactionNumber;
+
+    this.pageNumber = Math.floor(transactionNumber / 8);
+
+    if (transactionNumber % 8 > 0) {
+      this.pageNumber += 1;
+    }
+
+    this.publish();
+  }
+
+  async pagination() {
+    this.pageNumbers = [...Array(this.pageNumber)]
+      .map((value, index) => index + 1);
+
     this.publish();
   }
 }

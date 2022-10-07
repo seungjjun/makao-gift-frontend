@@ -45,11 +45,27 @@ export default class ApiService {
     };
   }
 
-  async fetchTransactions() {
-    const url = `${baseUrl}/orders`;
+  async fetchTransaction(id) {
+    const url = `${baseUrl}/orders/${id}`;
     const { data } = await axios.get(url);
-    const { transactions } = data;
-    return transactions;
+
+    console.log(data);
+
+    return data;
+  }
+
+  async fetchTransactions(pageNumber) {
+    const url = `${baseUrl}/orders`;
+    const { data } = await axios.get(url, {
+      params: {
+        page: pageNumber,
+      },
+    });
+    const { transactions, transactionNumber } = data;
+    return {
+      transactions,
+      transactionNumber,
+    };
   }
 
   async order({
@@ -57,7 +73,15 @@ export default class ApiService {
   }) {
     const url = `${baseUrl}/order`;
     const { data } = await axios.post(url, {
-      sender, receiver, productNumber, price, address, message, manufacturer, productName, option,
+      sender,
+      receiver,
+      productNumber,
+      price,
+      address,
+      message,
+      manufacturer,
+      productName,
+      option,
     });
     return {
       price: data.price,

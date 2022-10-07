@@ -27,7 +27,6 @@ Scenario('주문 내역이 없는 경우', ({ I }) => {
 });
 
 Scenario('주문 내역이 존재하는 경우 (한 페이지 분량)', ({ I }) => {
-  // 주문 내역 세팅 5개
   // I.login('로그인');
   I.order({ receiver: '노승준', address: '서울 종로', message: '선물이야' });
 
@@ -40,8 +39,8 @@ Scenario('주문 내역이 존재하는 경우 (한 페이지 분량)', ({ I }) 
 });
 
 Scenario('주문 내역이 존재하는 경우 (여러 페이지 분량)', ({ I }) => {
-  // 주문 내역 세팅 10개
-
+  I.settingTransactions();
+  I.amOnPage('/');
   // I.login('로그인');
 
   // When

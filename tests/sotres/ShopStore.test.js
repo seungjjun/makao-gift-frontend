@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import ShopStore from '../../src/stores/ShopStore';
 
 const context = describe;
@@ -45,4 +46,17 @@ describe('ShopStore', () => {
       expect(shopStore.amount).toBe(50_000);
     });
   });
+
+  // describe('fetchTransaction', () => {
+  //   context('특정 주문 내역을 불러올 때', () => {
+  //     it('아이디가 1인 주문 내역을 불러온다.', async () => {
+  //       await shopStore.fetchTransaction(1);
+
+  //       // const { transaction } = shopStore;
+
+  //       expect(shopStore.transaction).toBe(1);
+  //       // expect(transaction.receiver).toBe('노승준');
+  //     });
+  //   });
+  // });
 });

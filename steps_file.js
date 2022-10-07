@@ -32,4 +32,8 @@ module.exports = () => actor({
 
     this.click('[type=submit]');
   },
+
+  settingTransactions() {
+    this.amOnPage(`${backdoorBaseUrl}/setting-transactions`);
+  },
 });
