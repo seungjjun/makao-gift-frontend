@@ -11,5 +11,5 @@ test('App', () => {
     </MemoryRouter>
   ));
 
-  screen.getByText(/Hello/);
+  screen.getByText(/무얼 선물할지 고민이라면/);
 });

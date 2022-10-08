@@ -49,8 +49,6 @@ export default class ApiService {
     const url = `${baseUrl}/orders/${id}`;
     const { data } = await axios.get(url);
 
-    console.log(data);
-
     return data;
   }
 
@@ -62,6 +60,7 @@ export default class ApiService {
       },
     });
     const { transactions, transactionNumber } = data;
+
     return {
       transactions,
       transactionNumber,

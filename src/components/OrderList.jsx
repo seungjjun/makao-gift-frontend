@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import useShopStore from '../hooks/useShopStore';
 
@@ -11,8 +11,10 @@ export default function OrderList() {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+
   useEffect(() => {
-    shopStore.fetchTransactions(window.location.href.split('=')[1]);
+    shopStore.fetchTransactions(location.pathname.split('=')[1]);
 
     shopStore.pagination();
   }, []);

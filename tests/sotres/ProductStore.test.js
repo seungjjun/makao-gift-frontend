@@ -16,7 +16,7 @@ describe('ProductStore', () => {
       await productStore.fetchProducts();
 
       await waitFor(() => {
-        expect(productStore.products.length).toBe(9);
+        expect(productStore.products.length).toBe(8);
       });
     });
 
@@ -25,22 +25,16 @@ describe('ProductStore', () => {
 
       const { product } = productStore;
 
-      waitFor(() => {
-        expect(product.name).toBe('젤리세트');
-      });
+      expect(product.name).toBe('젤리세트');
     });
   });
 
   describe('pagination', () => {
     it('상품을 불러와 2페이지가 생김', async () => {
-      await productStore.fetchProducts();
+      await productStore.fetchProducts(2);
 
-      waitFor(async () => {
-        expect(productStore.pageNumber).toBe(2);
-        await productStore.pagination();
-
-        expect(productStore.pageNumbers).toBe(2);
-      });
+      expect(productStore.pageNumber).toBe(2);
+      await productStore.pagination();
     });
   });
 

@@ -17,7 +17,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     const path = location.pathname;
-    const productId = path.charAt(path.length - 1);
+    const productId = path.split('/')[2];
 
     productStore.fetchProduct(productId);
   }, []);

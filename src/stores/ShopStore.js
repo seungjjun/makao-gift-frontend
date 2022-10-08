@@ -46,10 +46,7 @@ export default class ShopStore extends Store {
   }
 
   async fetchTransaction(id) {
-    // const { transaction } = await apiService.fetchTransaction(id);
     this.transaction = await apiService.fetchTransaction(id);
-
-    this.transaction.createdAt = this.transaction.createdAt.substr(0, 10);
 
     this.publish();
   }

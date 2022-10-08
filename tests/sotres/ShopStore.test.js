@@ -47,16 +47,39 @@ describe('ShopStore', () => {
     });
   });
 
-  // describe('fetchTransaction', () => {
-  //   context('특정 주문 내역을 불러올 때', () => {
-  //     it('아이디가 1인 주문 내역을 불러온다.', async () => {
-  //       await shopStore.fetchTransaction(1);
+  describe('fetchTransaction', () => {
+    context('특정 주문 내역을 불러올 때', () => {
+      it('아이디가 1인 주문 내역을 불러온다.', async () => {
+        await shopStore.fetchTransaction(1);
 
-  //       // const { transaction } = shopStore;
+        const { transaction } = shopStore;
 
-  //       expect(shopStore.transaction).toBe(1);
-  //       // expect(transaction.receiver).toBe('노승준');
-  //     });
-  //   });
-  // });
+        expect(transaction).toBeTruthy();
+        expect(transaction.receiver).toBe('노승준');
+        expect(transaction.manufacturer).toBe('빙그레');
+      });
+    });
+
+    context('주문내역을 여러개 가져올 때', () => {
+      it('한페이지 분량의 주문내역(8개)을 가져온다.', async () => {
+        await shopStore.fetchTransactions(1);
+
+        const { transactions } = shopStore;
+
+        expect(transactions).toBeTruthy();
+        expect(transactions).toHaveLength(8);
+      });
+    });
+
+    context('주문내역을 여러개 가져올 때', () => {
+      it('두번째 페이지의 주문 내역(1개)을 가져온다.', async () => {
+        await shopStore.fetchTransactions(2);
+
+        const { transactions } = shopStore;
+
+        expect(transactions).toBeTruthy();
+        expect(transactions).toHaveLength(1);
+      });
+    });
+  });
 });
