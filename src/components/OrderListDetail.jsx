@@ -22,10 +22,11 @@ export default function OrderListDetail() {
 
   return (
     <div>
-      <div>이미지</div>
+      <img src={transaction.image} alt="product" />
       <p>{transaction.manufacturer}</p>
       <p>
         {transaction.option}
+        {' '}
         {transaction.productName}
       </p>
       <div>

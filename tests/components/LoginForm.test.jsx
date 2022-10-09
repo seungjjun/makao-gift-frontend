@@ -6,8 +6,6 @@ import LoginForm from '../../src/components/LoginForm';
 
 const navigate = jest.fn();
 
-// jest.mock('../../src/stores/ShopStore');
-
 jest.mock('react-router-dom', () => ({
   useNavigate() {
     return navigate;
@@ -24,7 +22,7 @@ test('LoginForm', async () => {
   });
 
   fireEvent.change(screen.getByPlaceholderText('비밀번호'), {
-    target: { value: 'Qwe1234!' },
+    target: { value: 'password' },
   });
 
   fireEvent.click(screen.getByText('로그인하기'));

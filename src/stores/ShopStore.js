@@ -19,12 +19,18 @@ export default class ShopStore extends Store {
     this.pageNumbers = [];
 
     this.transactionNumber = 1;
+
+    this.loginState = '';
+
+    this.registrationState = '';
+
+    this.errorMessage = '';
   }
 
-  async login({ id, password }) {
+  async login({ userId, password }) {
     try {
       const { accessToken, name, amount } = await apiService.postLogin({
-        id, password,
+        userId, password,
       });
 
       this.name = name;
@@ -32,17 +38,22 @@ export default class ShopStore extends Store {
 
       return accessToken;
     } catch (e) {
+      const message = e.response.data;
+      this.changeLoginState('fail', { errorMessage: message });
       return '';
     }
   }
 
-  async fetchUser() {
-    const { name, amount } = await apiService.fetchUser();
-
-    this.name = name;
-    this.amount = amount;
-
-    this.publish();
+  async register(name, userId, password, confirmPassword) {
+    try {
+      await apiService.register({
+        name, userId, password, confirmPassword,
+      });
+      this.name = name;
+    } catch (e) {
+      const message = e.response.data;
+      this.changeRegistrationState('existing', { errorMessage: message });
+    }
   }
 
   async fetchTransaction(id) {
@@ -71,6 +82,26 @@ export default class ShopStore extends Store {
       .map((value, index) => index + 1);
 
     this.publish();
+  }
+
+  changeRegistrationState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.registrationState = state;
+    this.publish();
+  }
+
+  changeLoginState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.loginState = state;
+    this.publish();
+  }
+
+  get isLoginFail() {
+    return this.loginState === 'fail';
+  }
+
+  get isExistingUserId() {
+    return this.registrationState === 'existing';
   }
 }
 

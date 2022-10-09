@@ -4,9 +4,17 @@ import axios from 'axios';
 const baseUrl = 'http://localhost:8000';
 
 export default class ApiService {
-  async postLogin({ id, password }) {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  async postLogin({ userId, password }) {
     const url = `${baseUrl}/login`;
-    const { data } = await axios.post(url, { id, password });
+    const { data } = await axios.post(url, { userId, password });
     return {
       accessToken: data.accessToken,
       name: data.name,
@@ -14,9 +22,23 @@ export default class ApiService {
     };
   }
 
+  async register({
+    name, userId, password, confirmPassword,
+  }) {
+    const url = `${baseUrl}/signup`;
+    const { data } = await axios.post(url, {
+      name, userId, password, confirmPassword,
+    });
+  }
+
   async fetchUser() {
-    const url = `${baseUrl}/user/me`;
-    const { data } = await axios.get(url);
+    const url = `${baseUrl}`;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
     return {
       name: data.name,
       amount: data.amount,
@@ -58,6 +80,9 @@ export default class ApiService {
       params: {
         page: pageNumber,
       },
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
     const { transactions, transactionNumber } = data;
 
@@ -68,11 +93,12 @@ export default class ApiService {
   }
 
   async order({
-    sender, receiver, address, message, productNumber, price, manufacturer, productName, option,
+    userId, receiver, address, message, productNumber,
+    price, manufacturer, productName, option, image,
   }) {
     const url = `${baseUrl}/order`;
-    const { data } = await axios.post(url, {
-      sender,
+    await axios.post(url, {
+      userId,
       receiver,
       productNumber,
       price,
@@ -81,10 +107,8 @@ export default class ApiService {
       manufacturer,
       productName,
       option,
+      image,
     });
-    return {
-      price: data.price,
-    };
   }
 }
 

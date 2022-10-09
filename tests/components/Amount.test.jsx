@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { shopStore } from '../../src/stores/ShopStore';
+import { orderStore } from '../../src/stores/OrderStore';
 
 import Amount from '../../src/components/Amount';
 
-jest.mock('../../src/stores/ShopStore');
+jest.mock('../../src/stores/OrderStore');
 
 test('Amount', async () => {
-  await shopStore.fetchUser();
+  await orderStore.fetchUser();
 
   render(<Amount />);
 

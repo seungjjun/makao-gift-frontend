@@ -6,29 +6,35 @@ export default class OrderStore extends Store {
   constructor() {
     super();
 
-    this.amounts = {
-      jel1y: 50_000,
-    };
+    this.userId = '';
+    this.name = '';
+    this.amount = 0;
 
-    this.id = '';
-    this.sender = '';
     this.receiver = '';
     this.address = '';
     this.message = '';
 
+    this.image = '';
     this.manufacturer = '';
     this.productName = '';
     this.option = '';
     this.productNumber = 1;
     this.price = 0;
+
+    this.orderState = '';
   }
 
-  amount(id) {
-    return this.amounts[id];
+  async fetchUser() {
+    const { name, amount } = await apiService.fetchUser();
+
+    this.name = name;
+    this.amount = amount;
+
+    this.publish();
   }
 
-  async order(sender, receiver, address, message) {
-    this.sender = sender;
+  async order(userId, receiver, address, message) {
+    this.userId = userId;
     this.receiver = receiver;
     this.address = address;
     this.message = message;
@@ -38,10 +44,11 @@ export default class OrderStore extends Store {
     const { option } = this;
     const { productNumber } = this;
     const { price } = this;
+    const { image } = this;
 
     await apiService.order(
       {
-        sender,
+        userId,
         receiver,
         address,
         message,
@@ -50,13 +57,16 @@ export default class OrderStore extends Store {
         manufacturer,
         productName,
         option,
+        image,
       },
     );
-
     this.publish();
+
+    this.fetchUser();
   }
 
-  productInformation(manufacturer, name, option, productNumber, price) {
+  productInformation(image, manufacturer, name, option, productNumber, price) {
+    this.image = image;
     this.manufacturer = manufacturer;
     this.productName = name;
     this.option = option;
@@ -64,6 +74,21 @@ export default class OrderStore extends Store {
     this.price = price;
 
     this.publish();
+  }
+
+  changeUserId(userId) {
+    this.userId = userId;
+
+    this.publish();
+  }
+
+  changeOrderState() {
+    this.orderState = 'fail';
+    this.publish();
+  }
+
+  get isOrderFail() {
+    return this.orderState === 'fail';
   }
 }
 

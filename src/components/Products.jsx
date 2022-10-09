@@ -31,6 +31,7 @@ export default function Products() {
   const { pageNumbers } = productStore;
 
   const { products } = productStore;
+
   return (
     <section>
       <p>인기선물을 한 자리에 모았어요</p>
@@ -45,6 +46,7 @@ export default function Products() {
                 key={product.id}
                 onClick={() => handleclcikLink(product.id)}
               >
+                <img src={product.image} alt="product" />
                 <p>
                   제조사:
                   {' '}
@@ -53,9 +55,12 @@ export default function Products() {
                 <p>
                   상품 이름:
                   {' '}
-                  {product.option}
-                  {' '}
                   {product.name}
+                </p>
+                <p>
+                  상품 옵션:
+                  {' '}
+                  {product.option}
                 </p>
                 <p>
                   {numberFormat(product.price)}

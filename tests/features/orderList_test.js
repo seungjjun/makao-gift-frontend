@@ -10,7 +10,7 @@ Scenario('로그인 하지 않고 주문 내역을 클릭할 경우', ({ I }) =>
   I.click('주문조회');
 
   // Then
-  I.see('USER LOGIN');
+  I.see('내가 주문한 내역이 없습니다');
 });
 
 Scenario('주문 내역이 없는 경우', ({ I }) => {

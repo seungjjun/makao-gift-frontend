@@ -49,6 +49,7 @@ export default function OrderList() {
             key={transaction.id}
             onClick={() => handleClickDetail(transaction.id)}
           >
+            <img src={transaction.image} alt="product" />
             <p>{transaction.manufacturer}</p>
             <p>
               {transaction.option}

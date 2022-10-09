@@ -1,13 +1,20 @@
 import OrderStore from '../../src/stores/OrderStore';
 
+const context = describe;
+
 describe('OrderStore', () => {
-  test('orderStore', () => {
-    const orderStore = new OrderStore();
+  let orderStore;
 
-    expect(orderStore.amount('jel1y')).toBe(50_000);
+  beforeEach(() => {
+    orderStore = new OrderStore();
+  });
 
-    orderStore.order('jel1y', '피카츄', '서울 종로', '받아랏');
+  context('when fetch User Information', () => {
+    it('user information with correct', async () => {
+      await orderStore.fetchUser();
 
-    expect(orderStore.address).toBe('서울 종로');
+      expect(orderStore.amount).toBe(50_000);
+      expect(orderStore.name).toBe('노승준');
+    });
   });
 });

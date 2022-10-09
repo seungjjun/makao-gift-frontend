@@ -1,13 +1,28 @@
-export default function Welcome() {
+import { useNavigate } from 'react-router-dom';
+
+export default function Welcome({ name }) {
+  const navigate = useNavigate();
+
+  const handleClickLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <div>
-      <p>무얼 선물할지 고민이라면</p>
       <h2>
-        특별한
-        {' '}
-        <strong>아이템을 전하세요</strong>
+        회원가입 완료
       </h2>
-      <p>마카오톡 선물하기에서만 볼 수 있는 특별한 아이템</p>
+      <p>
+        {name}
+        님 마카오 선물하기 회원가입이 완료되었습니다.
+      </p>
+      <p>정상적인 서비스 이용을 위해 로그인을 진행해주세요.</p>
+      <button
+        type="button"
+        onClick={handleClickLogin}
+      >
+        로그인하기
+      </button>
     </div>
   );
 }

@@ -11,14 +11,16 @@ import numberFormat from '../utils/NumberFormat';
 export default function OrderForm() {
   const orderStore = useOrderStore();
 
+  const { userId } = orderStore;
+
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { receiver, address, message } = data;
 
-    orderStore.order('jel1y', receiver, address, message);
+    await orderStore.order(userId, receiver, address, message);
 
     navigate('/orders');
   };
@@ -26,7 +28,7 @@ export default function OrderForm() {
   return (
     <div>
       <div>
-        <p>이미지</p>
+        <img src={orderStore.image} alt="product" />
         <p>{orderStore.manufacturer}</p>
         <p>
           {orderStore.option}
@@ -54,7 +56,7 @@ export default function OrderForm() {
           id="input-receiver"
           {...register('receiver', {
             required: true,
-            pattern: /^[ㄱ-ㅎ|가-힣]+$/,
+            pattern: /^[ㄱ-ㅎ|가-힣]{3,7}$/,
           })}
         />
         {errors.receiver ? (
@@ -83,8 +85,15 @@ export default function OrderForm() {
         <input
           type="text"
           id="input-message"
-          {...register('message')}
+          {...register('message', {
+            maxLength: 100,
+          })}
         />
+        {errors.message ? (
+          <p>100글자 이내로 입력해주세요</p>
+        ) : (
+          <p>100글자 이내로 입력해주세요</p>
+        )}
         <div>
           <button type="submit">선물하기</button>
         </div>

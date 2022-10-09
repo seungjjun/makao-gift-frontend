@@ -1,7 +1,7 @@
-import Welcome from '../components/Welcome';
+import Home from '../components/Home';
 
 export default function HomePage() {
   return (
-    <Welcome />
+    <Home />
   );
 }

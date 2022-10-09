@@ -2,9 +2,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import { useEffect } from 'react';
 
+import { useLocalStorage } from 'usehooks-ts';
+
+import { apiService } from './services/ApiService';
+
 import { productStore } from './stores/ProductStore';
 
 import { shopStore } from './stores/ShopStore';
+
+import GlobalStyle from './styles/GlobalStyle';
 
 import Header from './components/Header';
 
@@ -16,20 +22,40 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import OrderPage from './pages/OrderPage';
 import OrdersPage from './pages/OrdersPage';
 import OrdersDetailPage from './pages/OrdersDetailPage';
+import WelcomePage from './pages/WelcomePage';
+
+import useOrderStore from './hooks/useOrderStore';
 
 export default function App() {
+  const orderStore = useOrderStore();
+
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  useEffect(() => {
+    apiService.setAccessToken(accessToken);
+
+    if (accessToken) {
+      orderStore.fetchUser();
+    }
+  }, [accessToken]);
+
   useEffect(() => {
     productStore.fetchProducts(1);
     productStore.pagination();
-    shopStore.fetchTransactions(1);
-    shopStore.pagination();
+
+    if (accessToken) {
+      shopStore.fetchTransactions(1);
+      shopStore.pagination();
+    }
   }, []);
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/products" element={<ProductsPage />} />

@@ -71,7 +71,7 @@ Scenario('확인 비밀번호만 입력하지 않을 경우', ({ I }) => {
   I.click('[type=submit]');
 
   // Then
-  I.see('비밀번호를 입력해주세요');
+  I.see('비밀번호가 일치하지 않습니다');
 });
 
 Scenario('이미 존재하는 아이디를 입력할 경우', ({ I }) => {
@@ -83,7 +83,7 @@ Scenario('이미 존재하는 아이디를 입력할 경우', ({ I }) => {
 
   I.click('[type=submit]');
 
-  II.amOnPage('/');
+  I.amOnPage('/');
 
   I.click('회원가입');
 

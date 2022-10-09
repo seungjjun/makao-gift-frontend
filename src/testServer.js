@@ -9,8 +9,8 @@ const baseUrl = config.apiBaseUrl;
 
 const server = setupServer(
   rest.post(`${baseUrl}/login`, async (req, res, ctx) => {
-    const { id, password } = await req.json();
-    if (id === 'jel1y' && password === 'Qwe1234!') {
+    const { userId, password } = await req.json();
+    if (userId === 'jel1y' && password === 'password') {
       return res(ctx.json({
         accessToken: 'ACCESS.TOKEN',
         name: '노승준',
@@ -20,7 +20,7 @@ const server = setupServer(
     return res(ctx.status(400));
   }),
 
-  rest.get(`${baseUrl}/user/me`, async (req, res, ctx) => res(ctx.json({
+  rest.get(`${baseUrl}`, async (req, res, ctx) => res(ctx.json({
     name: '노승준',
     amount: 50_000,
   }))),
@@ -107,7 +107,6 @@ const server = setupServer(
             createdAt: '2022-10-06',
           },
         ],
-        transactionNumber: 1,
       }));
     }
 
@@ -128,7 +127,6 @@ const server = setupServer(
             createdAt: '2022-10-06',
           },
         ],
-        transactionNumber: 9,
       }));
     }
   }),

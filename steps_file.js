@@ -36,4 +36,11 @@ module.exports = () => actor({
   settingTransactions() {
     this.amOnPage(`${backdoorBaseUrl}/setting-transactions`);
   },
+
+  login() {
+    this.click('로그인');
+
+    this.fillField('아이디', 'jel1y');
+    this.fillField('비밀번호', 'password');
+  },
 });
