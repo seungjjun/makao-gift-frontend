@@ -39,6 +39,7 @@ export default class ShopStore extends Store {
       return accessToken;
     } catch (e) {
       const message = e.response.data;
+      // const { defaultMessage } = message.errors[0];
       this.changeLoginState('fail', { errorMessage: message });
       return '';
     }

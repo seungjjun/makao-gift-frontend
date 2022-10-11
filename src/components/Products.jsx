@@ -4,9 +4,70 @@ import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import styled from 'styled-components';
+
 import useProductStore from '../hooks/useProductStore';
 
 import numberFormat from '../utils/NumberFormat';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProductBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const P = styled.p`
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: auto;
+  width: 60%;
+  padding: 2.4em 0 1em;
+`;
+
+const ProductList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  max-width: 1024px;
+`;
+
+const Product = styled.li`
+  margin: 1em;
+`;
+
+const Image = styled.img`
+  width: 280px;
+  height: 280px;
+`;
+
+const Manufacturer = styled.p`
+  font-weight: bold;
+`;
+
+const Name = styled.p`
+  margin: .4em 0;
+`;
+
+const Price = styled.p`
+  font-weight: bold;
+`;
+
+const Pages = styled.ul`
+  display: flex;
+  justify-content: center;
+  gap: .5em;
+  
+  button {
+    margin-right: 1em;
+    border: none;
+    background-color: #fff;
+  }
+`;
 
 export default function Products() {
   const navagate = useNavigate();
@@ -33,44 +94,35 @@ export default function Products() {
   const { products } = productStore;
 
   return (
-    <section>
-      <p>인기선물을 한 자리에 모았어요</p>
-      <div>
-        <ul>
+    <Container>
+      <P>인기선물을 한 자리에 모았어요</P>
+      <ProductBox>
+        <ProductList>
           {products.length === 0 ? (
             <p>상품이 존재하지 않습니다</p>
           ) : (
             products.map((product) => (
-              <li
+              <Product
                 type="button"
                 key={product.id}
                 onClick={() => handleclcikLink(product.id)}
               >
-                <img src={product.image} alt="product" />
-                <p>
-                  제조사:
-                  {' '}
+                <Image src={product.image} alt="product" />
+                <Manufacturer>
                   {product.manufacturer}
-                </p>
-                <p>
-                  상품 이름:
-                  {' '}
+                </Manufacturer>
+                <Name>
                   {product.name}
-                </p>
-                <p>
-                  상품 옵션:
-                  {' '}
-                  {product.option}
-                </p>
-                <p>
+                </Name>
+                <Price>
                   {numberFormat(product.price)}
                   원
-                </p>
-              </li>
+                </Price>
+              </Product>
             ))
           )}
-        </ul>
-        <ul>
+        </ProductList>
+        <Pages>
           {pageNumbers.map((number) => (
             <li key={number}>
               <button
@@ -82,8 +134,8 @@ export default function Products() {
               </button>
             </li>
           ))}
-        </ul>
-      </div>
-    </section>
+        </Pages>
+      </ProductBox>
+    </Container>
   );
 }

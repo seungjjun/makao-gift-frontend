@@ -4,9 +4,101 @@ import { useForm } from 'react-hook-form';
 
 import { useNavigate } from 'react-router-dom';
 
+import styled from 'styled-components';
+
 import useOrderStore from '../hooks/useOrderStore';
 
 import numberFormat from '../utils/NumberFormat';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  margin-block: 3em;
+  padding: 3em 4em;
+  border: 1px solid #D9D9D9;
+`;
+
+const ProductInformation = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2em;
+
+  div {
+    margin: 1.5em;
+  }
+`;
+const Manufacturer = styled.p`
+  font-weight: bold;
+`;
+
+const Option = styled.p`
+  margin-top: 1em;
+`;
+
+const Name = styled.p`
+  margin-top: .4em;
+`;
+
+const PurchaseQuantity = styled.p`
+  margin-top: 2em;
+`;
+
+const TotalPrice = styled.p`
+  margin-top: .5em;
+`;
+
+const Image = styled.img`
+  width: 150px;
+  width: 150px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  margin-bottom: .4em;
+  color: #A0A0A0;
+
+  strong {
+    color: #FF424D;
+  }
+`;
+
+const Input = styled.input`
+  padding: 1em;
+  border: 1px solid #D8D8D8;
+`;
+
+const Guide = styled.p`
+  margin-top: .6em;
+  margin-bottom: 1.8em;
+  color: #A0A0A0;
+`;
+
+const Error = styled.p`
+  margin-top: .6em;
+  margin-bottom: 1.8em;
+  color: #FF424D;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  padding: 1em;
+  width: 60%;
+  border: none;
+  border-radius: 1em;
+  background: #937DC2;
+  color: #fff;
+`;
 
 export default function OrderForm() {
   const orderStore = useOrderStore();
@@ -26,63 +118,67 @@ export default function OrderForm() {
   };
 
   return (
-    <div>
-      <div>
-        <img src={orderStore.image} alt="product" />
-        <p>{orderStore.manufacturer}</p>
-        <p>
-          {orderStore.option}
-          {' '}
-          {orderStore.productName}
-        </p>
-        <p>
-          구매수량:
-          {' '}
-          {orderStore.productNumber}
-        </p>
-        <p>
-          총 상품금액:
-          {' '}
-          {numberFormat(orderStore.price)}
-          원
-        </p>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="input-receiver">
+    <Container>
+      <ProductInformation>
+        <Image src={orderStore.image} alt="product" />
+        <div>
+          <Manufacturer>{orderStore.manufacturer}</Manufacturer>
+          <Option>
+            {orderStore.option}
+          </Option>
+          <Name>
+            {orderStore.productName}
+          </Name>
+          <PurchaseQuantity>
+            구매수량:
+            {' '}
+            {orderStore.productNumber}
+          </PurchaseQuantity>
+          <TotalPrice>
+            총 상품금액:
+            {' '}
+            {numberFormat(orderStore.price)}
+            원
+          </TotalPrice>
+        </div>
+      </ProductInformation>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Label htmlFor="input-receiver">
           받는 분 성함
-        </label>
-        <input
+          <strong>*</strong>
+        </Label>
+        <Input
           type="text"
           id="input-receiver"
           {...register('receiver', {
-            required: true,
-            pattern: /^[ㄱ-ㅎ|가-힣]{3,7}$/,
+            required: { value: true, message: '성함을 입력해주세요' },
+            pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '받는 분 성함을 다시 확인해주세요' },
           })}
         />
         {errors.receiver ? (
-          <p>받는 분 성함을 다시 확인해주세요</p>
+          <Error>{errors.receiver.message}</Error>
         ) : (
-          <p>3 ~ 7자까지 한글만 사용 가능</p>
+          <Guide>3 ~ 7자까지 한글만 사용 가능</Guide>
         ) }
-        <label htmlFor="input-address">
-          받는 분 주소
-        </label>
-        <input
+        <Label htmlFor="input-address">
+          받는 분 주소*
+        </Label>
+        <Input
           type="text"
           id="input-address"
           {...register('address', {
-            required: true,
+            required: { value: true, message: '주소를 입력해주세요' },
           })}
         />
         {errors.address ? (
-          <p>주소를 입력해주세요</p>
+          <Error>{errors.address.message}</Error>
         ) : (
-          <p>주소지를 입력해주세요</p>
+          <Guide>주소지를 입력해주세요</Guide>
         )}
-        <label htmlFor="input-message">
+        <Label htmlFor="input-message">
           받는 분께 보내는 메세지
-        </label>
-        <input
+        </Label>
+        <Input
           type="text"
           id="input-message"
           {...register('message', {
@@ -90,14 +186,14 @@ export default function OrderForm() {
           })}
         />
         {errors.message ? (
-          <p>100글자 이내로 입력해주세요</p>
+          <Error>100글자 이내로 입력해주세요</Error>
         ) : (
-          <p>100글자 이내로 입력해주세요</p>
+          <Guide>100글자 이내로 입력해주세요</Guide>
         )}
-        <div>
-          <button type="submit">선물하기</button>
-        </div>
-      </form>
-    </div>
+        <ButtonBox>
+          <Button type="submit">선물하기</Button>
+        </ButtonBox>
+      </Form>
+    </Container>
   );
 }

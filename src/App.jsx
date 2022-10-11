@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 
 import { useLocalStorage } from 'usehooks-ts';
 
+import { Reset } from 'styled-reset';
+
+import styled from 'styled-components';
+
 import { apiService } from './services/ApiService';
 
 import { productStore } from './stores/ProductStore';
@@ -25,6 +29,13 @@ import OrdersDetailPage from './pages/OrdersDetailPage';
 import WelcomePage from './pages/WelcomePage';
 
 import useOrderStore from './hooks/useOrderStore';
+
+const Container = styled.div`
+  max-width: 1920px;
+  min-width: 1024px;
+  min-height: 100vh;
+  margin: auto;
+`;
 
 export default function App() {
   const orderStore = useOrderStore();
@@ -50,22 +61,25 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <Container>
+      <Reset />
       <GlobalStyle />
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products?page=1" element={<ProductsPage />} />
-        <Route path="/products/:id" element={<ProductDetailPage />} />
-        <Route path="/order" element={<OrderPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/orders?page=1" element={<OrderPage />} />
-        <Route path="/orders/:id" element={<OrdersDetailPage />} />
-      </Routes>
-    </div>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products?page=1" element={<ProductsPage />} />
+          <Route path="/products/:id" element={<ProductDetailPage />} />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/orders?page=1" element={<OrderPage />} />
+          <Route path="/orders/:id" element={<OrdersDetailPage />} />
+        </Routes>
+      </main>
+    </Container>
   );
 }

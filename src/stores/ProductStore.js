@@ -52,12 +52,12 @@ export default class ProductStore extends Store {
   }
 
   changeProductNumber(operator, price) {
-    if (operator === '+') {
+    if (operator === 'plusBlakImage') {
       this.productNumber += 1;
       this.productPrice += price;
     }
 
-    if (operator === '-' && this.productNumber !== 1) {
+    if (operator === 'minusBlackImage' && this.productNumber !== 1) {
       this.productNumber -= 1;
       this.productPrice -= price;
     }

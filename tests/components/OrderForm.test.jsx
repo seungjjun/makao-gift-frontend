@@ -17,16 +17,16 @@ test('OrderForm', () => {
     <OrderForm />
   ));
 
-  screen.getByText('받는 분 성함');
-  screen.getByText('받는 분 주소');
+  screen.getByText('받는 분 성함*');
+  screen.getByText('받는 분 주소*');
   screen.getByText('받는 분께 보내는 메세지');
   screen.getByText('선물하기');
 
-  fireEvent.change(screen.getByLabelText('받는 분 성함'), {
+  fireEvent.change(screen.getByLabelText('받는 분 성함*'), {
     target: { value: '노승준' },
   });
 
-  fireEvent.change(screen.getByLabelText('받는 분 주소'), {
+  fireEvent.change(screen.getByLabelText('받는 분 주소*'), {
     target: { value: '서울 종로' },
   });
 
