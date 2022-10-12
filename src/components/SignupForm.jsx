@@ -73,7 +73,7 @@ export default function SignupForm() {
 
   const {
     register, watch, handleSubmit, formState: { errors },
-  } = useForm();
+  } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     shopStore.registrationState = '';

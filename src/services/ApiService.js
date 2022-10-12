@@ -29,6 +29,7 @@ export default class ApiService {
     const { data } = await axios.post(url, {
       name, userId, password, confirmPassword,
     });
+    return data;
   }
 
   async fetchUser() {
@@ -85,7 +86,6 @@ export default class ApiService {
       },
     });
     const { transactions, transactionNumber } = data;
-
     return {
       transactions,
       transactionNumber,

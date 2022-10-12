@@ -1,15 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from 'react-hook-form';
 
-import { useNavigate } from 'react-router-dom';
-
-import { useLocalStorage } from 'usehooks-ts';
-
 import styled from 'styled-components';
-import useShopStore from '../hooks/useShopStore';
-
-import useOrderStore from '../hooks/useOrderStore';
 
 const Container = styled.div`
   display: flex;
@@ -67,28 +61,13 @@ const RegisterButton = styled.button`
 
 `;
 
-export default function LoginForm() {
-  const shopStore = useShopStore();
-  const orderStore = useOrderStore();
-
-  const navigate = useNavigate();
-
-  const [, setAccessToken] = useLocalStorage('accessToken', '');
-
+export default function LoginForm({
+  navigate, shopStore, isLoginFail, submit,
+}) {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const { userId, password } = data;
-
-    orderStore.changeUserId(userId);
-
-    const accessToken = await shopStore.login({ userId, password });
-
-    if (accessToken) {
-      setAccessToken(accessToken);
-
-      navigate('/');
-    }
+    submit(data);
   };
 
   const handleClickRegister = () => {
@@ -120,10 +99,7 @@ export default function LoginForm() {
           <Error>{errors.password.message}</Error>
         ) : errors.userId ? (
           <Error>{errors.userId.message}</Error>
-        ) : (
-          null
-        )}
-        {shopStore.isLoginFail ? (
+        ) : isLoginFail ? (
           <Error>{shopStore.errorMessage}</Error>
         ) : null}
         <LoginButton type="submit">

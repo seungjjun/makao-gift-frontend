@@ -35,6 +35,74 @@ describe('ShopStore', () => {
         expect(shopStore.amount).toBe(0);
       });
     });
+
+    context('아이디가 빈칸일 경우', () => {
+      it('에러메세지를 확인할 수 있다.', async () => {
+        await shopStore.login({ userId: '', password: '1234!' });
+
+        expect(shopStore.errorMessage).toBe('아이디를 입력해주세요');
+      });
+    });
+
+    context('비밀번호가 빈칸일 경우', () => {
+      it('에러메세지를 확인할 수 있다.', async () => {
+        await shopStore.login({ userId: 'jel1y', password: '' });
+
+        expect(shopStore.errorMessage).toBe('비밀번호를 입력해주세요');
+      });
+    });
+  });
+
+  describe('register', () => {
+    context('회원가입이 성공할 경우', () => {
+      it('회원가입시 입력한 이름을 불러온다', async () => {
+        await shopStore.register({
+          name: '노승준', userId: 'jel1y', password: 'Qwe1234!', confirmPassword: 'Qwe1234!',
+        });
+
+        expect(shopStore.name).toBe('노승준');
+      });
+    });
+
+    context('이름을 입력하지 않았을 경우', () => {
+      it('회원가입에 실패한다.', async () => {
+        await shopStore.register({
+          name: '', userId: 'jel1y', password: 'Qwe1234!', confirmPassword: 'Qwe1234!',
+        });
+
+        expect(shopStore.errorMessage).toBe('이름을 입력해주세요');
+      });
+    });
+
+    context('아이디를 입력하지 않았을 경우', () => {
+      it('회원가입에 실패한다.', async () => {
+        await shopStore.register({
+          name: '노승준', userId: '', password: 'Qwe1234!', confirmPassword: 'Qwe1234!',
+        });
+
+        expect(shopStore.errorMessage).toBe('아이디를 입력해주세요');
+      });
+    });
+
+    context('비밀번호를 입력하지 않았을 경우', () => {
+      it('회원가입에 실패한다.', async () => {
+        await shopStore.register({
+          name: '노승준', userId: 'jel1y', password: '', confirmPassword: 'Qwe1234!',
+        });
+
+        expect(shopStore.errorMessage).toBe('비밀번호를 입력해주세요');
+      });
+    });
+
+    context('확인 비밀번호를 입력하지 않았을 경우', () => {
+      it('회원가입에 실패한다.', async () => {
+        await shopStore.register({
+          name: '노승준', userId: 'jel1y', password: 'Qwe1234!', confirmPassword: '',
+        });
+
+        expect(shopStore.errorMessage).toBe('비밀번호를 입력해주세요');
+      });
+    });
   });
 
   describe('fetchTransaction', () => {

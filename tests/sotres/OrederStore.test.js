@@ -17,4 +17,12 @@ describe('OrderStore', () => {
       expect(orderStore.name).toBe('노승준');
     });
   });
+
+  context('when order is correct', () => {
+    it('update amount', async () => {
+      await orderStore.order('jel1y', '노승준', '서울', 'test');
+
+      // expect(orderStore);
+    });
+  });
 });

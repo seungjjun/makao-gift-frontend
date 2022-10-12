@@ -4,23 +4,17 @@ import {
 
 import OrderForm from '../../src/components/OrderForm';
 
-const navigate = jest.fn();
+import { orderStore } from '../../src/stores/OrderStore';
 
-jest.mock('react-router-dom', () => ({
-  useNavigate() {
-    return navigate;
-  },
-}));
+test('OrderForm', async () => {
+  const onSubmit = jest.fn();
 
-test('OrderForm', () => {
   render((
-    <OrderForm />
+    <OrderForm
+      orderStore={orderStore}
+      submit={onSubmit}
+    />
   ));
-
-  screen.getByText('받는 분 성함*');
-  screen.getByText('받는 분 주소*');
-  screen.getByText('받는 분께 보내는 메세지');
-  screen.getByText('선물하기');
 
   fireEvent.change(screen.getByLabelText('받는 분 성함*'), {
     target: { value: '노승준' },
@@ -36,7 +30,7 @@ test('OrderForm', () => {
 
   fireEvent.click(screen.getByText('선물하기'));
 
-  waitFor(() => {
-    expect(navigate).toBeCalled();
+  await waitFor(() => {
+    expect(onSubmit).toBeCalled();
   });
 });

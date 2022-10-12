@@ -1,12 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm } from 'react-hook-form';
 
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useOrderStore from '../hooks/useOrderStore';
 
 import numberFormat from '../utils/NumberFormat';
 
@@ -100,21 +97,11 @@ const Button = styled.button`
   color: #fff;
 `;
 
-export default function OrderForm() {
-  const orderStore = useOrderStore();
-
-  const { userId } = orderStore;
-
+export default function OrderForm({ orderStore, submit }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const navigate = useNavigate();
-
   const onSubmit = async (data) => {
-    const { receiver, address, message } = data;
-
-    await orderStore.order(userId, receiver, address, message);
-
-    navigate('/orders');
+    submit(data);
   };
 
   return (
@@ -161,7 +148,8 @@ export default function OrderForm() {
           <Guide>3 ~ 7자까지 한글만 사용 가능</Guide>
         ) }
         <Label htmlFor="input-address">
-          받는 분 주소*
+          받는 분 주소
+          <strong>*</strong>
         </Label>
         <Input
           type="text"

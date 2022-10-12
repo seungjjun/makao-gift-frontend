@@ -13,11 +13,9 @@ describe('ProductStore', () => {
 
   describe('products', () => {
     it('상품 정보을 불러옴', async () => {
-      await productStore.fetchProducts();
+      await productStore.fetchProducts(1);
 
-      await waitFor(() => {
-        expect(productStore.products.length).toBe(8);
-      });
+      expect(productStore.products.length).toBe(8);
     });
 
     it('상품 세부 정보를 불러옴', async () => {
@@ -30,31 +28,63 @@ describe('ProductStore', () => {
   });
 
   describe('pagination', () => {
-    it('상품을 불러와 2페이지가 생김', async () => {
+    it('1페이지 상품 8개를 불러옴', async () => {
+      await productStore.fetchProducts(1);
+
+      const { products } = productStore;
+
+      expect(productStore.pageNumber).toBe(1);
+      expect(products.length).toBe(8);
+    });
+
+    it('2페이지 상품 2개를 불러옴', async () => {
       await productStore.fetchProducts(2);
 
+      const { products } = productStore;
+
       expect(productStore.pageNumber).toBe(2);
-      await productStore.pagination();
+      expect(products.length).toBe(2);
     });
   });
 
   describe('changeProductNumber', () => {
-    it('4000원 금액의 상품의 수량을 2으로 변경', async () => {
+    it('+를 눌러 10000원 금액의 상품의 수량을 2로 변경', async () => {
       await productStore.fetchProduct(1);
 
-      waitFor(() => {
-        expect(productStore.productPrice).toBe(4000);
-      });
+      expect(productStore.productPrice).toBe(10000);
 
       expect(productStore.productNumber).toBe(1);
 
-      productStore.changeProductNumber('+', 4000);
+      productStore.changeProductNumber('plusBlakImage', 10000);
 
       expect(productStore.productNumber).toBe(2);
 
-      waitFor(() => {
-        expect(productStore.productPrice).toBe(8000);
-      });
+      expect(productStore.productPrice).toBe(20000);
+    });
+
+    it('-를 눌러 상품의 수량을 변경', async () => {
+      await productStore.fetchProduct(1);
+
+      expect(productStore.productPrice).toBe(10000);
+
+      productStore.changeProductNumber('plusBlakImage', 10000);
+      expect(productStore.productNumber).toBe(2);
+
+      productStore.changeProductNumber('minusBlackImage', 10000);
+
+      expect(productStore.productNumber).toBe(1);
+    });
+
+    it('상품의 수량이 1일때는 -를 눌러도 수량 변경이 없음', async () => {
+      await productStore.fetchProduct(1);
+
+      expect(productStore.productPrice).toBe(10000);
+
+      expect(productStore.productNumber).toBe(1);
+
+      productStore.changeProductNumber('minusGrayImage', 10000);
+
+      expect(productStore.productNumber).toBe(1);
     });
   });
 });

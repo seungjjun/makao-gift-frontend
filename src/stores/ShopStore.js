@@ -39,18 +39,19 @@ export default class ShopStore extends Store {
       return accessToken;
     } catch (e) {
       const message = e.response.data;
-      // const { defaultMessage } = message.errors[0];
       this.changeLoginState('fail', { errorMessage: message });
       return '';
     }
   }
 
-  async register(name, userId, password, confirmPassword) {
+  async register({
+    name, userId, password, confirmPassword,
+  }) {
     try {
-      await apiService.register({
+      const data = await apiService.register({
         name, userId, password, confirmPassword,
       });
-      this.name = name;
+      this.name = data;
     } catch (e) {
       const message = e.response.data;
       this.changeRegistrationState('existing', { errorMessage: message });

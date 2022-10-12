@@ -4,16 +4,39 @@ import {
 
 import LoginForm from '../../src/components/LoginForm';
 
-const navigate = jest.fn();
+import { shopStore } from '../../src/stores/ShopStore';
 
-jest.mock('react-router-dom', () => ({
-  useNavigate() {
-    return navigate;
+const register = jest.fn();
+const handleSubmit = jest.fn();
+const formState = jest.fn();
+
+jest.mock('react-hook-form', () => ({
+  useForm() {
+    return {
+      register,
+      handleSubmit,
+      formState,
+    };
   },
 }));
 
 test('LoginForm', async () => {
-  render(<LoginForm />);
+  const navigate = jest.fn();
+  const isLoginFail = jest.fn();
+  const onSubmit = jest.fn();
+
+  formState.errors = false;
+
+  render(
+    <LoginForm
+      navigate={navigate}
+      shopStore={shopStore}
+      isLoginFail={isLoginFail}
+      submit={onSubmit}
+    />,
+  );
+
+  screen.getByPlaceholderText('아이디');
 
   screen.getByText('USER LOGIN');
 
@@ -22,12 +45,15 @@ test('LoginForm', async () => {
   });
 
   fireEvent.change(screen.getByPlaceholderText('비밀번호'), {
-    target: { value: 'password' },
+    target: { value: 'Qwe1234!' },
   });
 
   fireEvent.click(screen.getByText('로그인하기'));
 
+  // fireEvent.submit(screen.getByText('로그인하기'));
+  // expect(onSubmit).toBeCalled();
+
   await waitFor(() => {
-    expect(navigate).toBeCalledWith('/');
+    expect(navigate).toBeCalled();
   });
 });
