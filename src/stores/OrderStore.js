@@ -22,6 +22,8 @@ export default class OrderStore extends Store {
     this.price = 0;
 
     this.orderState = '';
+
+    this.errorMessage = '';
   }
 
   async fetchUser() {
@@ -34,35 +36,43 @@ export default class OrderStore extends Store {
   }
 
   async order(userId, receiver, address, message) {
-    this.userId = userId;
-    this.receiver = receiver;
-    this.address = address;
-    this.message = message;
+    try {
+      this.userId = userId;
+      this.receiver = receiver;
+      this.address = address;
+      this.message = message;
 
-    const { manufacturer } = this;
-    const { productName } = this;
-    const { option } = this;
-    const { productNumber } = this;
-    const { price } = this;
-    const { image } = this;
+      const { manufacturer } = this;
+      const { productName } = this;
+      const { option } = this;
+      const { productNumber } = this;
+      const { price } = this;
+      const { image } = this;
 
-    await apiService.order(
-      {
-        userId,
-        receiver,
-        address,
-        message,
-        productNumber,
-        price,
-        manufacturer,
-        productName,
-        option,
-        image,
-      },
-    );
-    this.publish();
+      const data = await apiService.order(
+        {
+          userId,
+          receiver,
+          address,
+          message,
+          productNumber,
+          price,
+          manufacturer,
+          productName,
+          option,
+          image,
+        },
+      );
 
-    this.fetchUser();
+      this.publish();
+
+      this.fetchUser();
+      return data;
+    } catch (e) {
+      const errorMessage = e.response.data;
+      this.changeOrderFailState('fail', { errorMessage });
+      return '';
+    }
   }
 
   productInformation(image, manufacturer, name, option, productNumber, price) {
@@ -84,6 +94,12 @@ export default class OrderStore extends Store {
 
   changeOrderState() {
     this.orderState = 'fail';
+    this.publish();
+  }
+
+  changeOrderFailState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.orderState = state;
     this.publish();
   }
 

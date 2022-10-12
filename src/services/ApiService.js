@@ -29,7 +29,7 @@ export default class ApiService {
     const { data } = await axios.post(url, {
       name, userId, password, confirmPassword,
     });
-    return data;
+    return data.name;
   }
 
   async fetchUser() {
@@ -97,7 +97,7 @@ export default class ApiService {
     price, manufacturer, productName, option, image,
   }) {
     const url = `${baseUrl}/order`;
-    await axios.post(url, {
+    const { data } = await axios.post(url, {
       userId,
       receiver,
       productNumber,
@@ -109,6 +109,8 @@ export default class ApiService {
       option,
       image,
     });
+
+    return data;
   }
 }
 

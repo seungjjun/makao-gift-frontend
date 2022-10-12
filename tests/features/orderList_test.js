@@ -15,7 +15,6 @@ Scenario('로그인 하지 않고 주문 내역을 클릭할 경우', ({ I }) =>
 
 Scenario('주문 내역이 없는 경우', ({ I }) => {
   // Given
-  // I.login('로그인');
   I.setupDatabase();
   I.amOnPage('/');
 
@@ -27,11 +26,10 @@ Scenario('주문 내역이 없는 경우', ({ I }) => {
 });
 
 Scenario('주문 내역이 존재하는 경우 (한 페이지 분량)', ({ I }) => {
-  // I.login('로그인');
   I.order({ receiver: '노승준', address: '서울 종로', message: '선물이야' });
 
   // When
-  // I.click('주문조회');
+  I.click('주문조회');
 
   // Then
   I.see('내가 주문한 내역입니다');
@@ -41,7 +39,6 @@ Scenario('주문 내역이 존재하는 경우 (한 페이지 분량)', ({ I }) 
 Scenario('주문 내역이 존재하는 경우 (여러 페이지 분량)', ({ I }) => {
   I.settingTransactions();
   I.amOnPage('/');
-  // I.login('로그인');
 
   // When
   I.click('주문조회');

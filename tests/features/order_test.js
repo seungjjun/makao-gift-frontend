@@ -21,7 +21,6 @@ Scenario('로그인 하지 않고 선물을 할 경우', ({ I }) => {
 
 Scenario('로그인 후 선물하기 페이지를 확인', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
   I.login();
 
   I.click('스토어');
@@ -38,8 +37,6 @@ Scenario('로그인 후 선물하기 페이지를 확인', ({ I }) => {
 
 Scenario('올바르게 선물이 된 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
 
   I.click('스토어');
 
@@ -59,9 +56,6 @@ Scenario('올바르게 선물이 된 경우', ({ I }) => {
 
 Scenario('받는 분 성함을 입력하지 않은 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
-
   I.click('스토어');
 
   I.click('[type=button]');
@@ -72,7 +66,6 @@ Scenario('받는 분 성함을 입력하지 않은 경우', ({ I }) => {
   I.fillField('받는 분께 보내는 메세지', '받아랏');
 
   // Then
-  // 선물하기 버튼
   I.click('[type=submit]');
 
   I.see('받는 분 성함을 다시 확인해주세요');
@@ -80,8 +73,6 @@ Scenario('받는 분 성함을 입력하지 않은 경우', ({ I }) => {
 
 Scenario('받는 분 주소를 입력하지 않은 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
 
   I.click('스토어');
 
@@ -93,7 +84,6 @@ Scenario('받는 분 주소를 입력하지 않은 경우', ({ I }) => {
   I.fillField('받는 분께 보내는 메세지', '받아랏');
 
   // Then
-  // 선물하기 버튼
   I.click('[type=submit]');
 
   I.see('주소를 입력해주세요');
@@ -101,9 +91,6 @@ Scenario('받는 분 주소를 입력하지 않은 경우', ({ I }) => {
 
 Scenario('받는 분 성함을 잘못 입력한 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
-
   I.click('스토어');
 
   I.click('[type=button]');
@@ -115,7 +102,6 @@ Scenario('받는 분 성함을 잘못 입력한 경우', ({ I }) => {
   I.fillField('받는 분께 보내는 메세지', '받아랏');
 
   // Then
-  // 선물하기 버튼
   I.click('[type=submit]');
 
   I.see('받는 분 성함을 다시 확인해주세요');
@@ -123,7 +109,6 @@ Scenario('받는 분 성함을 잘못 입력한 경우', ({ I }) => {
 
 Scenario('잔액이 모자란 채 선물하기를 진행할 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
   I.login();
   I.click('로그인하기');
 
@@ -142,9 +127,6 @@ Scenario('잔액이 모자란 채 선물하기를 진행할 경우', ({ I }) => 
 
 Scenario('받는 분 성함의 글자가 7글자가 넘어갈 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
-
   I.click('스토어');
 
   I.click('[type=button]');
@@ -165,9 +147,6 @@ Scenario('받는 분 성함의 글자가 7글자가 넘어갈 경우', ({ I }) =
 
 Scenario('받는 분께 보내는 메세지가 100글자가 넘어갈 경우', ({ I }) => {
   // Given
-  // 백도어 api 설정 후 steps파일에서 설정 필요
-  // I.login('로그인');
-
   I.click('스토어');
 
   I.click('[type=button]');
@@ -192,7 +171,6 @@ Scenario('받는 분께 보내는 메세지가 100글자가 넘어갈 경우', (
   );
 
   // Then
-  // 선물하기 버튼
   I.click('[type=submit]');
 
   I.see('100글자 이내로 입력해주세요');

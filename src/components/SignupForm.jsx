@@ -82,7 +82,9 @@ export default function SignupForm() {
       name, userId, password, confirmPassword,
     } = data;
 
-    await shopStore.register(name, userId, password, confirmPassword);
+    await shopStore.register({
+      name, userId, password, confirmPassword,
+    });
 
     if (shopStore.isExistingUserId) {
       return;

@@ -1,5 +1,3 @@
-import { waitFor } from '@testing-library/react';
-
 import ProductStore from '../../src/stores/ProductStore';
 
 const context = describe;
@@ -48,43 +46,47 @@ describe('ProductStore', () => {
   });
 
   describe('changeProductNumber', () => {
-    it('+를 눌러 10000원 금액의 상품의 수량을 2로 변경', async () => {
-      await productStore.fetchProduct(1);
+    context('when click + button', () => {
+      it('+를 눌러 10000원 금액의 상품의 수량을 2로 변경', async () => {
+        await productStore.fetchProduct(1);
 
-      expect(productStore.productPrice).toBe(10000);
+        expect(productStore.productPrice).toBe(10000);
 
-      expect(productStore.productNumber).toBe(1);
+        expect(productStore.productNumber).toBe(1);
 
-      productStore.changeProductNumber('plusBlakImage', 10000);
+        productStore.changeProductNumber('plusBlakImage', 10000);
 
-      expect(productStore.productNumber).toBe(2);
+        expect(productStore.productNumber).toBe(2);
 
-      expect(productStore.productPrice).toBe(20000);
+        expect(productStore.productPrice).toBe(20000);
+      });
     });
 
-    it('-를 눌러 상품의 수량을 변경', async () => {
-      await productStore.fetchProduct(1);
+    context('when click - button', () => {
+      it('-를 눌러 상품의 수량을 변경', async () => {
+        await productStore.fetchProduct(1);
 
-      expect(productStore.productPrice).toBe(10000);
+        expect(productStore.productPrice).toBe(10000);
 
-      productStore.changeProductNumber('plusBlakImage', 10000);
-      expect(productStore.productNumber).toBe(2);
+        productStore.changeProductNumber('plusBlakImage', 10000);
+        expect(productStore.productNumber).toBe(2);
 
-      productStore.changeProductNumber('minusBlackImage', 10000);
+        productStore.changeProductNumber('minusBlackImage', 10000);
 
-      expect(productStore.productNumber).toBe(1);
-    });
+        expect(productStore.productNumber).toBe(1);
+      });
 
-    it('상품의 수량이 1일때는 -를 눌러도 수량 변경이 없음', async () => {
-      await productStore.fetchProduct(1);
+      it('상품의 수량이 1일때는 -를 눌러도 수량 변경이 없음', async () => {
+        await productStore.fetchProduct(1);
 
-      expect(productStore.productPrice).toBe(10000);
+        expect(productStore.productPrice).toBe(10000);
 
-      expect(productStore.productNumber).toBe(1);
+        expect(productStore.productNumber).toBe(1);
 
-      productStore.changeProductNumber('minusGrayImage', 10000);
+        productStore.changeProductNumber('minusGrayImage', 10000);
 
-      expect(productStore.productNumber).toBe(1);
+        expect(productStore.productNumber).toBe(1);
+      });
     });
   });
 });

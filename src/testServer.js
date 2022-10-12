@@ -72,9 +72,7 @@ const server = setupServer(
       );
     }
 
-    return res(ctx.json(
-      name,
-    ));
+    return res(ctx.json({ name, userId }));
   }),
 
   rest.get(`${baseUrl}/products/1`, async (req, res, ctx) => res(ctx.json({
@@ -139,13 +137,32 @@ const server = setupServer(
       price, manufacturer, productName, option, image,
     } = await req.json();
 
-    if (!receiver && !address) {
-      return res(ctx.status(400));
+    if (receiver === '') {
+      return res(
+        ctx.status(400),
+        ctx.json('성함을 입력해주세요'),
+      );
+    }
+
+    if (address === '') {
+      return res(
+        ctx.status(400),
+        ctx.json('주소를 입력해주세요'),
+      );
     }
 
     return res(
       ctx.json({
+        userId,
         receiver,
+        address,
+        message,
+        productNumber,
+        price,
+        manufacturer,
+        productName,
+        option,
+        image,
       }),
     );
   }),
