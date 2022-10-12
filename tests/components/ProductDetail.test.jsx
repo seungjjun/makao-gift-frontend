@@ -36,9 +36,8 @@ test('ProductDetail', async () => {
   ));
 
   await waitFor(() => {
-    screen.getByText('10,000원');
-    screen.getByText('대왕젤리2개포함한 젤리세트');
-    screen.getByText('제조사 킹왕짱젤리');
-    screen.getByText('총 상품금액: 10,000원');
+    screen.getAllByText('10,000원');
+    screen.getByText(/대왕젤리2개포함한/);
+    screen.getByText(/킹왕짱젤리/);
   });
 });

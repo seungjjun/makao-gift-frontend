@@ -68,6 +68,13 @@ const Pages = styled.ul`
   }
 `;
 
+const NotFound = styled.p`
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8em;
+`;
+
 export default function OrderList() {
   const shopStore = useShopStore();
 
@@ -97,7 +104,7 @@ export default function OrderList() {
 
   if (!transactions.length) {
     return (
-      <p>내가 주문한 내역이 없습니다</p>
+      <NotFound>내가 주문한 내역이 없습니다</NotFound>
     );
   }
 

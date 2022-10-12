@@ -1,20 +1,34 @@
 import {
-  fireEvent, render, screen, waitFor,
+  fireEvent, render, screen,
 } from '@testing-library/react';
 
 import SignupForm from './SignupForm';
 
-const navigate = jest.fn();
+// const navigate = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  useNavigate() {
-    return navigate;
-  },
-}));
+// jest.mock('react-router-dom', () => ({
+//   useNavigate() {
+//     return navigate;
+//   },
+// }));
 
 test('signup', async () => {
+  const shopStore = jest.fn();
+  const register = jest.fn();
+  const watch = jest.fn();
+  const handleSubmit = jest.fn();
+  const errors = jest.fn();
+  const submit = jest.fn();
+
   render((
-    <SignupForm />
+    <SignupForm
+      shopStore={shopStore}
+      register={register}
+      watch={watch}
+      handleSubmit={handleSubmit}
+      errors={errors}
+      submit={submit}
+    />
   ));
 
   fireEvent.change(screen.getByLabelText('이름 :'), {
@@ -33,9 +47,7 @@ test('signup', async () => {
     target: { value: 'Qwe1234!' },
   });
 
-  fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
+  fireEvent.click(screen.getByText('회원가입'));
 
-  waitFor(() => {
-    expect(navigate).toBeCalledWith('/welcome');
-  });
+  expect(handleSubmit).toBeCalled();
 });

@@ -4,6 +4,8 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import styled from 'styled-components';
 
+import useOrderStore from '../hooks/useOrderStore';
+
 import Amount from './Amount';
 
 const MenuBar = styled.header`
@@ -47,7 +49,10 @@ const UserMenuButtons = styled.ul`
 
 export default function Header() {
   const navigate = useNavigate();
+
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+
+  const orderStore = useOrderStore();
 
   const handleClickLogout = () => {
     setAccessToken('');
@@ -73,7 +78,7 @@ export default function Header() {
         </MenuButtons>
         {accessToken ? (
           <LogoutButton>
-            <Amount />
+            <Amount orderStore={orderStore} />
             <button
               type="button"
               onClick={handleClickLogout}
@@ -91,7 +96,6 @@ export default function Header() {
             </li>
           </UserMenuButtons>
         )}
-
       </MenuButtonList>
     </MenuBar>
   );

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import gift from '../assets/gift.png';
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -36,7 +34,7 @@ const ColorParagraph = styled.p`
 const ImageBox = styled.div`
   width: 100%;
   height: 70vh;
-  background: url(${gift}) no-repeat 0 50%; 
+  background: url('https://user-images.githubusercontent.com/104769120/195258442-a6275b1d-35ce-430b-8149-db2d3393b840.png') no-repeat 0 50%; 
   background-size: contain;
 `;
 

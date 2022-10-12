@@ -1,31 +1,31 @@
 import {
-  fireEvent, render, screen, waitFor,
+  fireEvent, getByText, render, screen,
 } from '@testing-library/react';
 
 import LoginForm from '../../src/components/LoginForm';
 
 import { shopStore } from '../../src/stores/ShopStore';
 
-const register = jest.fn();
-const handleSubmit = jest.fn();
-const formState = jest.fn();
-
-jest.mock('react-hook-form', () => ({
-  useForm() {
-    return {
-      register,
-      handleSubmit,
-      formState,
-    };
-  },
-}));
+// jest.mock('react-hook-form', () => ({
+//   useForm() {
+//     return {
+//       register,
+//       handleSubmit,
+//       formState,
+//     };
+//   },
+// }));
 
 test('LoginForm', async () => {
   const navigate = jest.fn();
   const isLoginFail = jest.fn();
   const onSubmit = jest.fn();
 
-  formState.errors = false;
+  const register = jest.fn();
+  const handleSubmit = jest.fn();
+  const errors = jest.fn();
+
+  // formState.errors = false;
 
   render(
     <LoginForm
@@ -33,6 +33,9 @@ test('LoginForm', async () => {
       shopStore={shopStore}
       isLoginFail={isLoginFail}
       submit={onSubmit}
+      register={register}
+      handleSubmit={handleSubmit}
+      errors={errors}
     />,
   );
 
@@ -50,10 +53,9 @@ test('LoginForm', async () => {
 
   fireEvent.click(screen.getByText('로그인하기'));
 
-  // fireEvent.submit(screen.getByText('로그인하기'));
+  expect(handleSubmit).toBeCalled();
+
   // expect(onSubmit).toBeCalled();
 
-  await waitFor(() => {
-    expect(navigate).toBeCalled();
-  });
+  // expect(navigate).toBeCalled();
 });

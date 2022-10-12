@@ -1,12 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useProductStore from '../hooks/useProductStore';
 
 import numberFormat from '../utils/NumberFormat';
 
@@ -41,12 +35,13 @@ const Product = styled.li`
 `;
 
 const Image = styled.img`
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
 `;
 
 const Manufacturer = styled.p`
   font-weight: bold;
+  margin-top: 1em;
 `;
 
 const Name = styled.p`
@@ -69,29 +64,18 @@ const Pages = styled.ul`
   }
 `;
 
-export default function Products() {
-  const navagate = useNavigate();
-
-  const productStore = useProductStore();
-
-  useEffect(() => {
-    productStore.fetchProducts(window.location.href.split('=')[1]);
-    productStore.pagination();
-  }, []);
-
+export default function Products({
+  navigate, productStore, pageNumbers, products,
+}) {
   const handleClickPageNumber = async (e) => {
     const { value } = e.target;
-    navagate(`/products?page=${value}`);
+    navigate(`/products?page=${value}`);
     await productStore.fetchProducts(value);
   };
 
   const handleclcikLink = (id) => {
-    navagate(`/products/${id}`);
+    navigate(`/products/${id}`);
   };
-
-  const { pageNumbers } = productStore;
-
-  const { products } = productStore;
 
   return (
     <Container>

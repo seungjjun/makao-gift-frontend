@@ -62,10 +62,8 @@ const RegisterButton = styled.button`
 `;
 
 export default function LoginForm({
-  navigate, shopStore, isLoginFail, submit,
+  navigate, shopStore, isLoginFail, submit, register, handleSubmit, errors,
 }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
   const onSubmit = async (data) => {
     submit(data);
   };

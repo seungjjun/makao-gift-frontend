@@ -1,13 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useForm } from 'react-hook-form';
-
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useShopStore from '../hooks/useShopStore';
 
 const Container = styled.div`
   display: flex;
@@ -66,31 +60,11 @@ const Button = styled.button`
   color: #fff;
 `;
 
-export default function SignupForm() {
-  const shopStore = useShopStore();
-
-  const navigate = useNavigate();
-
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm({ reValidateMode: 'onSubmit' });
-
+export default function SignupForm({
+  shopStore, register, watch, handleSubmit, errors, submit,
+}) {
   const onSubmit = async (data) => {
-    shopStore.registrationState = '';
-
-    const {
-      name, userId, password, confirmPassword,
-    } = data;
-
-    await shopStore.register({
-      name, userId, password, confirmPassword,
-    });
-
-    if (shopStore.isExistingUserId) {
-      return;
-    }
-
-    navigate('/welcome');
+    submit(data);
   };
 
   return (

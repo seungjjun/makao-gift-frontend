@@ -6,10 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import minusBlack from '../assets/minus-black.png';
-import minusGray from '../assets/minus-gray.png';
-import plusBlack from '../assets/plus-black.png';
-
 import useOrderStore from '../hooks/useOrderStore';
 
 import useProductStore from '../hooks/useProductStore';
@@ -192,13 +188,13 @@ export default function ProductDetail({ accessToken }) {
             구매수량
             {productStore.productNumber === 1 ? (
               <img
-                src={minusGray}
+                src="https://user-images.githubusercontent.com/104769120/195256894-a9446617-d6c2-4fb2-a39e-850e713d2f45.png"
                 onClick={(e) => handleClickCount(e)}
                 alt="minusGrayImage"
               />
             ) : (
               <img
-                src={minusBlack}
+                src="https://user-images.githubusercontent.com/104769120/195256779-9c957a5d-0983-4e94-a602-143166804d76.png"
                 onClick={(e) => handleClickCount(e)}
                 alt="minusBlackImage"
               />
@@ -209,7 +205,7 @@ export default function ProductDetail({ accessToken }) {
               readOnly
             />
             <img
-              src={plusBlack}
+              src="https://user-images.githubusercontent.com/104769120/195256995-8d418bbf-c0fa-4b85-b16d-9523de5cbf7b.png"
               onClick={(e) => handleClickCount(e)}
               alt="plusBlakImage"
             />

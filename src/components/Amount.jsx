@@ -1,10 +1,6 @@
-import useOrderStore from '../hooks/useOrderStore';
-
 import numberFormat from '../utils/NumberFormat';
 
-export default function Amount() {
-  const orderStore = useOrderStore();
-
+export default function Amount({ orderStore }) {
   return (
     <section>
       <p>

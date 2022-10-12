@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-import purple from '../assets/purpleDoor.jpg';
-
 const Background = styled.section`
-  background: url(${purple}); 
+  background: url('https://user-images.githubusercontent.com/104769120/195258226-6ae7811e-ef3b-40a2-b370-fd85dc1ab6d9.jpg'); 
   background-size: cover;                     
   background-repeat: no-repeat;
 `;

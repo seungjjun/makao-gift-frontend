@@ -1,3 +1,5 @@
+import { useForm } from 'react-hook-form';
+
 import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from 'usehooks-ts';
@@ -10,6 +12,8 @@ import useShopStore from '../hooks/useShopStore';
 
 export default function LoginPage() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const shopStore = useShopStore();
   const orderStore = useOrderStore();
@@ -36,6 +40,9 @@ export default function LoginPage() {
       shopStore={shopStore}
       isLoginFail={isLoginFail}
       submit={onSubmit}
+      register={register}
+      handleSubmit={handleSubmit}
+      errors={errors}
     />
   );
 }
