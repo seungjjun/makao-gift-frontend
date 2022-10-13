@@ -1,7 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useLocalStorage } from 'usehooks-ts';
-
 import styled from 'styled-components';
 
 import useOrderStore from '../hooks/useOrderStore';
@@ -29,6 +27,16 @@ const MenuButtons = styled.ul`
   li:nth-child(1) {
     font-size: 1.4em;
   }
+
+  a {
+
+    &:focus, &:hover {
+      text-decoration: underline;
+      text-underline-position: under;
+      text-decoration-color: #937DC2;
+      text-decoration-thickness: .2em;
+    }
+  }
 `;
 
 const LogoutButton = styled.ul`
@@ -47,10 +55,8 @@ const UserMenuButtons = styled.ul`
   gap: 3em;
 `;
 
-export default function Header() {
+export default function Header({ accessToken, setAccessToken }) {
   const navigate = useNavigate();
-
-  const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
 
   const orderStore = useOrderStore();
 

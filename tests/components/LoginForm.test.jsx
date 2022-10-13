@@ -6,16 +6,6 @@ import LoginForm from '../../src/components/LoginForm';
 
 import { shopStore } from '../../src/stores/ShopStore';
 
-// jest.mock('react-hook-form', () => ({
-//   useForm() {
-//     return {
-//       register,
-//       handleSubmit,
-//       formState,
-//     };
-//   },
-// }));
-
 test('LoginForm', async () => {
   const navigate = jest.fn();
   const isLoginFail = jest.fn();
@@ -24,8 +14,6 @@ test('LoginForm', async () => {
   const register = jest.fn();
   const handleSubmit = jest.fn();
   const errors = jest.fn();
-
-  // formState.errors = false;
 
   render(
     <LoginForm
@@ -54,8 +42,4 @@ test('LoginForm', async () => {
   fireEvent.click(screen.getByText('로그인하기'));
 
   expect(handleSubmit).toBeCalled();
-
-  // expect(onSubmit).toBeCalled();
-
-  // expect(navigate).toBeCalled();
 });

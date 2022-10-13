@@ -6,9 +6,9 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import LoginForm from '../components/LoginForm';
 
-import useOrderStore from '../hooks/useOrderStore';
-
 import useShopStore from '../hooks/useShopStore';
+
+import useOrderStore from '../hooks/useOrderStore';
 
 export default function LoginPage() {
   const [, setAccessToken] = useLocalStorage('accessToken', '');
@@ -27,6 +27,7 @@ export default function LoginPage() {
     orderStore.changeUserId(userId);
 
     const accessToken = await shopStore.login({ userId, password });
+
     if (accessToken) {
       setAccessToken(accessToken);
 

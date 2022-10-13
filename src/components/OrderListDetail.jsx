@@ -1,10 +1,4 @@
-import { useEffect } from 'react';
-
-import { useLocation } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useShopStore from '../hooks/useShopStore';
 
 import numberFormat from '../utils/NumberFormat';
 
@@ -58,20 +52,7 @@ const Transaction = styled.p`
   }
 `;
 
-export default function OrderListDetail() {
-  const shopStore = useShopStore();
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const path = location.pathname;
-    const orderListId = path.split('/')[2];
-
-    shopStore.fetchTransaction(orderListId);
-  }, []);
-
-  const { transaction } = shopStore;
-
+export default function OrderListDetail({ transaction }) {
   return (
     <Container>
       <Background>

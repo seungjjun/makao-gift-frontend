@@ -1,12 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { useEffect } from 'react';
-
 import styled from 'styled-components';
-
-import { useLocation, useNavigate } from 'react-router-dom';
-
-import useShopStore from '../hooks/useShopStore';
 
 const Container = styled.div`
   display: flex;
@@ -52,8 +46,8 @@ const Receiver = styled.p`
 `;
 
 const Image = styled.img`
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
 `;
 
 const Pages = styled.ul`
@@ -75,21 +69,9 @@ const NotFound = styled.p`
   margin-top: 8em;
 `;
 
-export default function OrderList() {
-  const shopStore = useShopStore();
-
-  const navigate = useNavigate();
-
-  const location = useLocation();
-
-  useEffect(() => {
-    shopStore.fetchTransactions(location.pathname.split('=')[1]);
-
-    shopStore.pagination();
-  }, []);
-
-  const { transactions } = shopStore;
-
+export default function OrderList({
+  shopStore, navigate, transactions, pageNumbers,
+}) {
   const handleClickDetail = (id) => {
     navigate(`/orders/${id}`);
   };
@@ -99,8 +81,6 @@ export default function OrderList() {
     navigate(`/orders?page=${value}`);
     await shopStore.fetchTransactions(value);
   };
-
-  const { pageNumbers } = shopStore;
 
   if (!transactions.length) {
     return (

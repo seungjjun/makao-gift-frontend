@@ -103,6 +103,16 @@ describe('ShopStore', () => {
         expect(shopStore.errorMessage).toBe('비밀번호를 입력해주세요');
       });
     });
+
+    context('확인 비밀번호를 입력하지 않았을 경우', () => {
+      it('회원가입에 실패한다.', async () => {
+        await shopStore.register({
+          name: '노승준', userId: 'jel1y', password: 'Qwe1234!', confirmPassword: 'xxx',
+        });
+
+        expect(shopStore.errorMessage).toBe('비밀번호가 일치하지 않습니다');
+      });
+    });
   });
 
   describe('fetchTransaction', () => {

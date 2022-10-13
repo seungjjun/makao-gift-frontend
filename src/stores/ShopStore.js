@@ -38,7 +38,7 @@ export default class ShopStore extends Store {
 
       return accessToken;
     } catch (e) {
-      const message = e.response.data;
+      const { message } = e.response.data;
       this.changeLoginState('fail', { errorMessage: message });
       return '';
     }
@@ -53,7 +53,7 @@ export default class ShopStore extends Store {
       });
       this.name = data;
     } catch (e) {
-      const message = e.response.data;
+      const { message } = e.response.data;
       this.changeRegistrationState('existing', { errorMessage: message });
     }
   }

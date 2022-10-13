@@ -46,7 +46,7 @@ describe('ProductStore', () => {
   });
 
   describe('changeProductNumber', () => {
-    context('when click + button', () => {
+    context('when click "+" button', () => {
       it('+를 눌러 10000원 금액의 상품의 수량을 2로 변경', async () => {
         await productStore.fetchProduct(1);
 
@@ -62,7 +62,7 @@ describe('ProductStore', () => {
       });
     });
 
-    context('when click - button', () => {
+    context('when click "-" button', () => {
       it('-를 눌러 상품의 수량을 변경', async () => {
         await productStore.fetchProduct(1);
 

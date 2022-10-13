@@ -2,15 +2,7 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 
-import SignupForm from './SignupForm';
-
-// const navigate = jest.fn();
-
-// jest.mock('react-router-dom', () => ({
-//   useNavigate() {
-//     return navigate;
-//   },
-// }));
+import SignupForm from '../../src/components/SignupForm';
 
 test('signup', async () => {
   const shopStore = jest.fn();

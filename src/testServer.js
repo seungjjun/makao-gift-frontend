@@ -26,13 +26,17 @@ const server = setupServer(
     if (userId === '') {
       return res(
         ctx.status(400),
-        ctx.json('아이디를 입력해주세요'),
+        ctx.json({
+          code: 1001, message: '아이디를 입력해주세요',
+        }),
       );
     }
     if (!password) {
       return res(
         ctx.status(400),
-        ctx.json('비밀번호를 입력해주세요'),
+        ctx.json({
+          code: 1001, message: '비밀번호를 입력해주세요',
+        }),
       );
     }
 
@@ -47,28 +51,45 @@ const server = setupServer(
     if (name === '') {
       return res(
         ctx.status(400),
-        ctx.json('이름을 입력해주세요'),
+        ctx.json({
+          code: 1005, message: '이름을 입력해주세요',
+        }),
       );
     }
 
     if (userId === '') {
       return res(
         ctx.status(400),
-        ctx.json('아이디를 입력해주세요'),
+        ctx.json({
+          code: 1006, message: '아이디를 입력해주세요',
+        }),
       );
     }
 
     if (password === '') {
       return res(
         ctx.status(400),
-        ctx.json('비밀번호를 입력해주세요'),
+        ctx.json({
+          code: 1007, message: '비밀번호를 입력해주세요',
+        }),
       );
     }
 
     if (confirmPassword === '') {
       return res(
         ctx.status(400),
-        ctx.json('비밀번호를 입력해주세요'),
+        ctx.json({
+          code: 1007, message: '비밀번호를 입력해주세요',
+        }),
+      );
+    }
+
+    if (password !== confirmPassword) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          code: 1008, message: '비밀번호가 일치하지 않습니다',
+        }),
       );
     }
 

@@ -40,7 +40,7 @@ const Container = styled.div`
 export default function App() {
   const orderStore = useOrderStore();
 
-  const [accessToken] = useLocalStorage('accessToken', '');
+  const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
 
   useEffect(() => {
     apiService.setAccessToken(accessToken);
@@ -64,7 +64,10 @@ export default function App() {
     <Container>
       <Reset />
       <GlobalStyle />
-      <Header />
+      <Header
+        accessToken={accessToken}
+        setAccessToken={setAccessToken}
+      />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

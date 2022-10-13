@@ -13,14 +13,14 @@ export default function Productspage() {
 
   const productStore = useProductStore();
 
-  useEffect(() => {
-    productStore.fetchProducts(window.location.href.split('=')[1]);
-    productStore.pagination();
-  }, []);
-
   const { pageNumbers } = productStore;
 
   const { products } = productStore;
+
+  useEffect(() => {
+    productStore.fetchProducts(window.location.href.split('=')[1]);
+    productStore.pagination();
+  }, [window.location.href.split('=')[1]]);
 
   return (
     <div>
