@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import OrdersPage from './OrdersPage';
 
@@ -93,6 +93,47 @@ describe('OrdersPage', () => {
       screen.getByText('To.리자드');
       screen.getByText('지프');
       screen.getByText('퍼플리스 집업');
+    });
+
+    it('4번 아이디를 가진 거래 내역을 클릭해 navigate가 호출된것을 확인할 수 있다.', () => {
+      render(<OrdersPage />);
+
+      screen.getByText('To.단데기');
+
+      fireEvent.click(screen.getByText('To.단데기'));
+
+      expect(navigate).toBeCalledWith('/orders/4');
+    });
+
+    it('2페이지를 클릭해 2번페이지로 이동하는 navigate가 호출된것을 확인할 수 있다.', () => {
+      render(<OrdersPage />);
+
+      screen.getByText('2');
+
+      fireEvent.click(screen.getByText('2'));
+
+      expect(navigate).toBeCalledWith('/orders?page=2');
+    });
+  });
+
+  context('거래내역이 존재하지 않을 경우', () => {
+    beforeEach(() => {
+      location = {
+        pathname: '/orders?page=1',
+        search: '',
+        hash: '',
+        state: null,
+        key: 'default',
+      };
+
+      transactions = [];
+      pageNumbers = [1];
+    });
+
+    it('내가 주문한 내역이 없다는 메세지를 볼 수 있다', () => {
+      render(<OrdersPage />);
+
+      screen.getByText('내가 주문한 내역이 없습니다');
     });
   });
 });
