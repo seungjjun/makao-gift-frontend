@@ -31,7 +31,7 @@ jest.mock('react-router-dom', () => ({
 const context = describe;
 
 describe('OrdersPage', () => {
-  context('1페이지 분량의 거래내역이 존재할 경우', () => {
+  context('9개의 거래내역이 존재할 경우', () => {
     beforeEach(() => {
       location = {
         pathname: '/orders?page=1',

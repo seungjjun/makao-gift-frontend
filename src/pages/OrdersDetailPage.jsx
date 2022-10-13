@@ -18,7 +18,7 @@ export default function OrdersDetailPage() {
     const orderListId = path.split('/')[2];
 
     shopStore.fetchTransaction(orderListId);
-  }, []);
+  }, [location.pathname.split('/')[2]]);
 
   return (
     <OrderListDetail
