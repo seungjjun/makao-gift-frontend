@@ -30,6 +30,7 @@ const OrderHistories = styled.ul`
 
 const List = styled.li`
   margin: 1em;
+  cursor: pointer;
 `;
 
 const Manufacturer = styled.p`
@@ -56,9 +57,14 @@ const Pages = styled.ul`
   gap: .5em;
 
   button {
-    margin-right: 1em;
+    margin-right: 1.2em;
     border: none;
+    color: #CCC;
     background-color: #fff;
+
+    &:focus {
+      color: #000;
+    }
   }
 `;
 

@@ -39,7 +39,7 @@ test('LoginForm', async () => {
     target: { value: 'Qwe1234!' },
   });
 
-  fireEvent.click(screen.getByText('로그인하기'));
+  fireEvent.submit(screen.getByText('로그인하기'));
 
   expect(handleSubmit).toBeCalled();
 });

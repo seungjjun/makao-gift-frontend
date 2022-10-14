@@ -39,7 +39,7 @@ test('signup', async () => {
     target: { value: 'Qwe1234!' },
   });
 
-  fireEvent.click(screen.getByText('회원가입'));
+  fireEvent.submit(screen.getByText('회원가입'));
 
   expect(handleSubmit).toBeCalled();
 });

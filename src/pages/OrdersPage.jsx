@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useLocalStorage } from 'usehooks-ts';
+
 import OrderList from '../components/OrderList';
 
 import useShopStore from '../hooks/useShopStore';
 
 export default function OrdersPage() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
   const shopStore = useShopStore();
 
   const { transactions } = shopStore;
@@ -18,9 +22,15 @@ export default function OrdersPage() {
   const { pageNumbers } = shopStore;
 
   useEffect(() => {
-    shopStore.fetchTransactions(location.pathname.split('=')[1]);
+    if (accessToken) {
+      shopStore.fetchTransactions(location.pathname.split('=')[1]);
 
-    shopStore.pagination();
+      shopStore.pagination();
+    }
+
+    if (!accessToken) {
+      shopStore.resetTransactions();
+    }
   }, []);
 
   return (
@@ -29,6 +39,7 @@ export default function OrdersPage() {
       navigate={navigate}
       transactions={transactions}
       pageNumbers={pageNumbers}
+      accessToken={accessToken}
     />
   );
 }

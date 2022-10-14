@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from 'usehooks-ts';
 
+import { useEffect } from 'react';
 import LoginForm from '../components/LoginForm';
 
 import useShopStore from '../hooks/useShopStore';
@@ -20,6 +21,10 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const { isLoginFail } = shopStore;
+
+  useEffect(() => {
+    shopStore.resetErrorMessage();
+  }, []);
 
   const onSubmit = async (data) => {
     const { userId, password } = data;

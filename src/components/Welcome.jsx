@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -32,9 +30,7 @@ const Button = styled.button`
   color: #fff;
 `;
 
-export default function Welcome({ name }) {
-  const navigate = useNavigate();
-
+export default function Welcome({ name, navigate }) {
   const handleClickLogin = () => {
     navigate('/login');
   };

@@ -1,43 +1,36 @@
 import {
-  render, screen, waitFor,
+  render, screen,
 } from '@testing-library/react';
 
 import ProductDetail from '../../src/components/ProductDetail';
 
-jest.mock('react-router-dom', () => ({
-  useLocation: jest.fn(() => ({
-    pathname: '/products/1',
-    search: '',
-    hash: '',
-    state: null,
-    key: 'default',
-  })),
+const context = describe;
 
-  useNavigate: jest.fn(),
-}));
+describe('ProductDetail', () => {
+  context('상품 세부 정보를 확인할 경우', () => {
+    it('올바르게 정보를 확인할 수 있다.', () => {
+      const accessToken = 'AccessToken';
 
-jest.mock('../../src/services/ApiService', () => ({
-  apiService: {
-    async fetchProduct() {
-      return {
-        id: 1,
-        manufacturer: '킹왕짱젤리',
-        name: '젤리세트',
-        option: '대왕젤리2개포함한',
-        price: 10_000,
+      const productStore = jest.fn();
+      const orderStore = jest.fn();
+      const navigate = jest.fn();
+
+      const product = {
+        id: 1, manufacturer: '킹왕짱젤리', name: '젤리세트', option: '대왕젤리2개포함한', price: 10_000,
       };
-    },
-  },
-}));
 
-test('ProductDetail', async () => {
-  render((
-    <ProductDetail />
-  ));
-
-  await waitFor(() => {
-    screen.getAllByText('10,000원');
-    screen.getByText(/대왕젤리2개포함한/);
-    screen.getByText(/킹왕짱젤리/);
+      render((
+        <ProductDetail
+          accessToken={accessToken}
+          productStore={productStore}
+          orderStore={orderStore}
+          product={product}
+          navigate={navigate}
+        />
+      ));
+      screen.getAllByText('10,000원');
+      screen.getByText(/대왕젤리2개포함한/);
+      screen.getByText(/킹왕짱젤리/);
+    });
   });
 });

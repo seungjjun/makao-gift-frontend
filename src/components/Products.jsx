@@ -32,6 +32,7 @@ const ProductList = styled.ul`
 
 const Product = styled.li`
   margin: 1em;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -58,9 +59,14 @@ const Pages = styled.ul`
   gap: .5em;
   
   button {
-    margin-right: 1em;
+    margin-right: 1.2em;
     border: none;
+    color: #CCC;
     background-color: #fff;
+
+    &:focus {
+      color: #000;
+    }
   }
 `;
 

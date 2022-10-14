@@ -28,6 +28,14 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
+let accessToken = '';
+
+jest.mock('usehooks-ts', () => ({
+  useLocalStorage() {
+    return accessToken;
+  },
+}));
+
 const context = describe;
 
 describe('OrdersPage', () => {
@@ -71,6 +79,7 @@ describe('OrdersPage', () => {
         },
       ];
       pageNumbers = [1, 2];
+      accessToken = 'ACCESSTOKEN';
     });
 
     it('fetchTransactions이 호출된것을 확인할 수 있다', () => {

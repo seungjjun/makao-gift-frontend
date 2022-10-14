@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+
 import { useForm } from 'react-hook-form';
+
 import { useNavigate } from 'react-router-dom';
 
 import SignupForm from '../components/SignupForm';
@@ -13,6 +16,10 @@ export default function SignUpPage() {
   const {
     register, watch, handleSubmit, formState: { errors },
   } = useForm({ reValidateMode: 'onSubmit' });
+
+  useEffect(() => {
+    shopStore.resetErrorMessage();
+  }, []);
 
   const submit = async (data) => {
     shopStore.registrationState = '';
@@ -35,7 +42,6 @@ export default function SignUpPage() {
   return (
     <SignupForm
       shopStore={shopStore}
-      // navigate={navigate}
       register={register}
       watch={watch}
       handleSubmit={handleSubmit}

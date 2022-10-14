@@ -29,10 +29,14 @@ const Input = styled.input`
   width: 100%;
   margin-bottom: 1em;
   padding: 1em;
-  border: 1px solid #CCC;
+  border: ${(props) => (props.error ? '1px solid #ff0000' : '1px solid #CCC')};
+
+  ::placeholder {
+      color: #CCC;
+    }
 
   &:focus {
-    border: 1px solid #937DC2;
+    outline: 1px solid #937DC2;
   }
 `;
 
@@ -78,6 +82,7 @@ export default function LoginForm({
           id="input-userId"
           type="text"
           placeholder="아이디"
+          error={errors.userId}
           {...register('userId', {
             required: { value: true, message: '아이디를 입력해주세요' },
           })}
@@ -87,6 +92,7 @@ export default function LoginForm({
           id="input-password"
           type="password"
           placeholder="비밀번호"
+          error={errors.password}
           {...register('password', {
             required: { value: true, message: '비밀번호를 입력해주세요' },
           })}

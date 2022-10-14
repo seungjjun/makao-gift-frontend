@@ -98,6 +98,16 @@ export default class ShopStore extends Store {
     this.publish();
   }
 
+  resetTransactions() {
+    this.transactions = [];
+    this.publish();
+  }
+
+  resetErrorMessage() {
+    this.errorMessage = '';
+    this.publish();
+  }
+
   get isLoginFail() {
     return this.loginState === 'fail';
   }

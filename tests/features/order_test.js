@@ -2,7 +2,7 @@ Feature('상품 주문 - 고객은 상품을 친구에게 보내기 위해 주�
 
 // Given
 Before(({ I }) => {
-  I.setupDatabase();
+  // I.setupDatabase();
 
   I.amOnPage('/');
 });

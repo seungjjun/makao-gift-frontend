@@ -69,6 +69,16 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 1em;
   border: 1px solid #D8D8D8;
+
+  border: ${(props) => (props.error ? '1px solid #ff0000' : '1px solid #CCC')};
+
+  ::placeholder {
+      color: #CCC;
+    }
+
+  &:focus {
+    outline: 1px solid #937DC2;
+  }
 `;
 
 const Guide = styled.p`
@@ -137,6 +147,7 @@ export default function OrderForm({ orderStore, submit }) {
         <Input
           type="text"
           id="input-receiver"
+          error={errors.receiver}
           {...register('receiver', {
             required: { value: true, message: '성함을 입력해주세요' },
             pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '받는 분 성함을 다시 확인해주세요' },
@@ -154,6 +165,7 @@ export default function OrderForm({ orderStore, submit }) {
         <Input
           type="text"
           id="input-address"
+          error={errors.address}
           {...register('address', {
             required: { value: true, message: '주소를 입력해주세요' },
           })}

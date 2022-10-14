@@ -35,8 +35,14 @@ const Input = styled.input`
   padding: 1em;
   border: 1px solid #CCC;
 
+  border: ${(props) => (props.error ? '1px solid #ff0000' : '1px solid #CCC')};
+
+  ::placeholder {
+      color: #CCC;
+    }
+
   &:focus {
-    border: 1px solid #937DC2;
+    outline: 1px solid #937DC2;
   }
 `;
 
@@ -79,6 +85,7 @@ export default function SignupForm({
         <Input
           id="input-name"
           type="text"
+          error={errors.name}
           {...register('name', {
             required: { value: true, message: '이름을 입력해주세요' },
             pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '이름을 다시 확인해주세요' },
@@ -97,6 +104,7 @@ export default function SignupForm({
         <Input
           id="input-userId"
           type="text"
+          error={errors.userId}
           {...register('userId', {
             required: { value: true, message: '아이디를 입력해주세요' },
             pattern: { value: /^[a-z0-9]{4,16}$/, message: '아이디를 다시 확인해주세요' },
@@ -117,6 +125,7 @@ export default function SignupForm({
         <Input
           id="input-password"
           type="password"
+          error={errors.password}
           {...register('password', {
             required: { value: true, message: '비밀번호를 입력해주세요' },
             pattern: {
@@ -138,6 +147,7 @@ export default function SignupForm({
         <Input
           id="input-confirmPassword"
           type="password"
+          error={errors.confirmPassword}
           {...register('confirmPassword', {
             required: true,
             validate: (value) => value === watch('password'),

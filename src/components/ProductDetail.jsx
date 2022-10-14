@@ -1,14 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useEffect } from 'react';
-
-import { useLocation, useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-
-import useOrderStore from '../hooks/useOrderStore';
-
-import useProductStore from '../hooks/useProductStore';
 
 import numberFormat from '../utils/NumberFormat';
 
@@ -82,12 +74,31 @@ const PurchaseQuantity = styled.p`
   }
 
   img {
+    position: relative;
+    top: .33em;
     width: 25px;
     height: 25px;
-    border: 1px solid #CCC;
-    border-right: none;
     cursor: pointer;
   }
+`;
+
+const MinusImg = styled.img`
+  position: relative;
+  margin-left: .5em;
+  left: .2em;
+  border: 1px solid #CCC;
+  border-right: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  `;
+
+const PlusImg = styled.img`
+  position: relative;
+  right: .2em;
+  border: 1px solid #CCC;
+  border-left: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;
 
 const TotalPrice = styled.p`
@@ -117,24 +128,9 @@ const Error = styled.p`
   margin-top: 1em;
 `;
 
-export default function ProductDetail({ accessToken }) {
-  const productStore = useProductStore();
-  const orderStore = useOrderStore();
-
-  const location = useLocation();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    orderStore.orderState = '';
-    const path = location.pathname;
-    const productId = path.split('/')[2];
-
-    productStore.fetchProduct(productId);
-  }, []);
-
-  const { product } = productStore;
-
+export default function ProductDetail({
+  accessToken, productStore, orderStore, product, navigate,
+}) {
   const handleClickCount = (e) => {
     const { target } = e;
     productStore.changeProductNumber(target.alt, product.price);
@@ -187,13 +183,13 @@ export default function ProductDetail({ accessToken }) {
           <PurchaseQuantity>
             구매수량
             {productStore.productNumber === 1 ? (
-              <img
+              <MinusImg
                 src="https://user-images.githubusercontent.com/104769120/195256894-a9446617-d6c2-4fb2-a39e-850e713d2f45.png"
                 onClick={(e) => handleClickCount(e)}
                 alt="minusGrayImage"
               />
             ) : (
-              <img
+              <MinusImg
                 src="https://user-images.githubusercontent.com/104769120/195256779-9c957a5d-0983-4e94-a602-143166804d76.png"
                 onClick={(e) => handleClickCount(e)}
                 alt="minusBlackImage"
@@ -204,7 +200,7 @@ export default function ProductDetail({ accessToken }) {
               value={productStore.productNumber}
               readOnly
             />
-            <img
+            <PlusImg
               src="https://user-images.githubusercontent.com/104769120/195256995-8d418bbf-c0fa-4b85-b16d-9523de5cbf7b.png"
               onClick={(e) => handleClickCount(e)}
               alt="plusBlakImage"

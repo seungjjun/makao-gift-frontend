@@ -18,6 +18,15 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  button:hover {
+    color: #000;
+  }
+
+  button:active {
+    color: #fff;
+    background-color: #5C2E7E;
+  }
 `;
 
 export default GlobalStyle;
